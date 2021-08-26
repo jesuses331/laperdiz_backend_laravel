@@ -14,7 +14,7 @@ class EtapaController extends Controller
      */
     public function index()
     {
-        //
+        return Etapa::get();
     }
 
     /**
@@ -35,7 +35,8 @@ class EtapaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $etapa = new Etapa();
+        $etapa->create($request->all());
     }
 
     /**
@@ -46,7 +47,7 @@ class EtapaController extends Controller
      */
     public function show(Etapa $etapa)
     {
-        //
+        return $etapa;
     }
 
     /**
@@ -57,7 +58,7 @@ class EtapaController extends Controller
      */
     public function edit(Etapa $etapa)
     {
-        //
+        
     }
 
     /**
@@ -69,7 +70,7 @@ class EtapaController extends Controller
      */
     public function update(Request $request, Etapa $etapa)
     {
-        //
+        $etapa->update($request->all());
     }
 
     /**
@@ -80,6 +81,6 @@ class EtapaController extends Controller
      */
     public function destroy(Etapa $etapa)
     {
-        //
+        $etapa->delete();
     }
 }

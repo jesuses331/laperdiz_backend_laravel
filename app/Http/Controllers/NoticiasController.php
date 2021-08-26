@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Raza;
+use App\Models\Noticias;
 use Illuminate\Http\Request;
 
-class RazaController extends Controller
+class NoticiasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RazaController extends Controller
      */
     public function index()
     {
-        return Raza::get();
+        return Noticias::get();
     }
 
     /**
@@ -35,53 +35,52 @@ class RazaController extends Controller
      */
     public function store(Request $request)
     {
-        $raza = new Raza();
-        $raza->create($request->all());
-        $raza->save();
+        $noticias = new Noticias();
+        $noticias->create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Noticias  $noticias
      * @return \Illuminate\Http\Response
      */
-    public function show(Raza $raza)
+    public function show(Noticias $noticias)
     {
-        return $raza;
+        return $noticias;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Noticias  $noticias
      * @return \Illuminate\Http\Response
      */
-    public function edit(Raza $raza)
+    public function edit(Noticias $noticias)
     {
-        //
+       
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Noticias  $noticias
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Raza $raza)
+    public function update(Request $request, Noticias $noticias)
     {
-        $raza->update($request->all());
+        $noticias->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Noticias  $noticias
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Raza $raza)
+    public function destroy(Noticias $noticias)
     {
-        $raza->delete();
+        $noticias->delete();
     }
 }

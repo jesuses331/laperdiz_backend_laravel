@@ -14,9 +14,7 @@ class MascotaController extends Controller
      */
     public function index()
     {
-        $datos['mascotas']=Mascota::paginate(20);
-
-        return view('admin.mascota.index',$datos);
+       return Mascota::get();
     }
 
     /**
@@ -37,7 +35,9 @@ class MascotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $mascota = new Mascota();
+        $mascota->create($request->all());
+        
     }
 
     /**
@@ -48,7 +48,7 @@ class MascotaController extends Controller
      */
     public function show(Mascota $mascota)
     {
-        //
+        return $mascota;
     }
 
     /**
@@ -59,7 +59,7 @@ class MascotaController extends Controller
      */
     public function edit(Mascota $mascota)
     {
-        //
+        
     }
 
     /**
@@ -71,7 +71,8 @@ class MascotaController extends Controller
      */
     public function update(Request $request, Mascota $mascota)
     {
-        //
+        $mascota->update($request->all());
+        
     }
 
     /**
@@ -82,6 +83,6 @@ class MascotaController extends Controller
      */
     public function destroy(Mascota $mascota)
     {
-        //
+        $mascota->delete();
     }
 }

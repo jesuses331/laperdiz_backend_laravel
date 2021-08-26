@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Raza;
+use App\Models\TipoServicio;
 use Illuminate\Http\Request;
 
-class RazaController extends Controller
+class TipoServicioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RazaController extends Controller
      */
     public function index()
     {
-        return Raza::get();
+        //
     }
 
     /**
@@ -35,29 +35,27 @@ class RazaController extends Controller
      */
     public function store(Request $request)
     {
-        $raza = new Raza();
-        $raza->create($request->all());
-        $raza->save();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\TipoServicio  $tipoServicio
      * @return \Illuminate\Http\Response
      */
-    public function show(Raza $raza)
+    public function show(TipoServicio $tipoServicio)
     {
-        return $raza;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\TipoServicio  $tipoServicio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Raza $raza)
+    public function edit(TipoServicio $tipoServicio)
     {
         //
     }
@@ -66,22 +64,22 @@ class RazaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\TipoServicio  $tipoServicio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Raza $raza)
+    public function update(Request $request, TipoServicio $tipoServicio)
     {
-        $raza->update($request->all());
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\TipoServicio  $tipoServicio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Raza $raza)
+    public function destroy(TipoServicio $tipoServicio)
     {
-        $raza->delete();
+        //
     }
 }

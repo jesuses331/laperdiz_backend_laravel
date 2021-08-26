@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\DenunciasController;
+use App\Http\Controllers\EtapaController;
 use App\Http\Controllers\MascotaController;
+use App\Http\Controllers\NoticiasController;
+use App\Http\Controllers\RazaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +20,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
-Route::resource('mascota', MascotaController::class);
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/mascotas', MascotaController::class);
+Route::resource('/razas', RazaController::class);
+Route::resource('/etapas', EtapaController::class);
+Route::resource('/denuncias', DenunciasController::class);
+Route::resource('/noticias', NoticiasController::class);

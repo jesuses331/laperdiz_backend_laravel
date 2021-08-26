@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Raza;
+use App\Models\Denuncias;
 use Illuminate\Http\Request;
 
-class RazaController extends Controller
+class DenunciasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class RazaController extends Controller
      */
     public function index()
     {
-        return Raza::get();
+        return Denuncias::get();
     }
 
     /**
@@ -24,7 +24,7 @@ class RazaController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,53 +35,52 @@ class RazaController extends Controller
      */
     public function store(Request $request)
     {
-        $raza = new Raza();
-        $raza->create($request->all());
-        $raza->save();
+        $denuncias = new Denuncias();
+        $denuncias->create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Denuncias  $denuncias
      * @return \Illuminate\Http\Response
      */
-    public function show(Raza $raza)
+    public function show(Denuncias $denuncias)
     {
-        return $raza;
+        return $denuncias;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Denuncias  $denuncias
      * @return \Illuminate\Http\Response
      */
-    public function edit(Raza $raza)
+    public function edit(Denuncias $denuncias)
     {
-        //
+       
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Denuncias  $denuncias
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Raza $raza)
+    public function update(Request $request, Denuncias $denuncias)
     {
-        $raza->update($request->all());
+        $denuncias->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Raza  $raza
+     * @param  \App\Models\Denuncias  $denuncias
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Raza $raza)
+    public function destroy(Denuncias $denuncias)
     {
-        $raza->delete();
+        $denuncias->delete();
     }
 }
