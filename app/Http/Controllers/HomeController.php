@@ -25,4 +25,12 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function denuncias()
+    {
+        return view('listaDenuncias');
+    }
+    public function noticias()
+    {
+        return view('listaNoticias');
+    }
 }

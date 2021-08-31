@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Denuncia;
 use App\Models\Denuncias;
 use App\Models\Etapa;
 use App\Models\Mascota;
+use App\Models\Noticia;
 use App\Models\Noticias;
 use App\Models\Talla;
 use Illuminate\Database\Seeder;
@@ -65,9 +67,9 @@ class DatabaseSeeder extends Seeder
         Mascota::factory(10)->create();
         
         /***************Denuncias************ */
-        Denuncias::factory(10)->create();
+        Denuncia::factory(10)->create();
 
          /***************Noticias************ */
-         Noticias::factory(10)->create();
+         Noticia::factory(10)->create();
     }
 }
