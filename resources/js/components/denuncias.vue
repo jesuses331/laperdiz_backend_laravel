@@ -25,12 +25,19 @@
                     </div>
                     <div>
                         <label for="descripcion">Descripcion</label>
-                         <input v-model="denuncia.descripcion" id="descripcion" placeholder="ciudad" type="text" class="form-control" >
+                         <input v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="text" class="form-control" >
                         
                     </div>
                     <div>
                         <label for="ciudad">Ciudad</label>
                         <input v-model="denuncia.ciudad" id="ciudad" placeholder="ciudad" type="text" class="form-control" >
+                    </div>
+                    <div>
+                        <label for="files">fotos</label>
+                        <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
+                    </div>
+                    <div class="m-auto">
+                        <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
                     </div>
                       <!--  <input  id="detalle" placeholder="Detalle de la mascota" type="text" class="form-control" >
                     </div>
@@ -102,7 +109,10 @@
 export default {
     data(){
         return {
-            
+            /*****Imagenes */
+            id_image:0,
+                images:[],
+                pictures:'',
            
             /*********Mascotas */
             id:0,
@@ -136,10 +146,11 @@ export default {
 
                 
             }else{
-                console.log('raza', this.razaSeleccionada)
+               
                 const res = await axios.post('denuncias/',this.denuncia)
                             
             }
+            this.uploadImages();
             this.cerrarModal();
             this.listar();
             
@@ -175,14 +186,66 @@ export default {
                 this.denuncia.titulo ='' ;
                 this.denuncia.descripcion = '';
             }
+            
 
         },
         cerrarModal(){
             this.modal = 0;
         },
+        imageChange(){
+            for (let i = 0; i < this.$refs.files.files.length; i++) {
+                
+                this.images.push(this.$refs.files.files[i]);
+                console.log(this.images);
+            }
+        },
+        uploadImages(){
+            
+            var self=this;
+            let formData = new FormData();
+            for (let i = 0; i < this.images.length; i++) {
+                
+                let file = self.images[i];
+                formData.append('files['+ i +']', file);
+
+            }
+            
+            const config = {
+                headers: { "Content-Type" : "multipart/form-data"}
+            }
+            
+           
+            if(this.modificar){
+                formData.append('_method','PATCH');
+                axios.post('denuncias/' + this.id,formData,config) 
+                .then(response =>{
+                self.$refs.files.value = '';
+                self.images = [];
+                console.log('Si se modifico');
+                })
+                .catch(error =>{
+                    console.log(error);
+                })
+            }else{
+            axios.post('/denuncia/imagenes/',formData,config )
+            .then(response =>{
+             self.$refs.files.value = '';
+            self.images = [];
+                    
+            console.log('Si se guardo');
+                })
+                .catch(error =>{
+                    console.log(error);
+                })
+            }
+            
+            
+        },
     },
     created(){
-        this.listar();
+       this.listar();
+        
+       
        
     }
     

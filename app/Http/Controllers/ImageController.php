@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Denuncia;
 use App\Models\Image;
+use App\Models\Mascota;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class DenunciaController extends Controller
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,12 @@ class DenunciaController extends Controller
      */
     public function index()
     {
-        return Denuncia::get();
+        $images = Image::get();
+        foreach ($images as $data){
+            $data->url = json_decode($data->url);
+        }
+        return response()->json([$images]);
+        
     }
 
     /**
@@ -37,28 +42,34 @@ class DenunciaController extends Controller
      */
     public function store(Request $request)
     {
-        $denuncia = new Denuncia();
-        $denuncia->create($request->all());
+        
+        
+       
+        
+        
+        
     }
-
+    
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Denuncia  $denuncia
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Denuncia $denuncia)
+    public function show($id)
     {
-        return $denuncia;
+        $images = Image::find($id);
+        $images->url = json_decode($images->url);  
+        return response()->json([$images]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Denuncia  $denuncia
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Denuncia $denuncia)
+    public function edit($id)
     {
         //
     }
@@ -67,54 +78,33 @@ class DenunciaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Denuncia  $denuncia
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        $denuncia = Denuncia::find($id);
-        $denuncia->update($request->all());
-        $models = 'App\Models\Denuncia';
-        $image_id = DB::table('images')
-                    ->where('imageable_id', '=', $id)
-                    ->where('imageable_type', '=', $models)
-                    ->value('id');
-        $image=Image::find($image_id);
-       
-       
-        if ($request->hasFile('files')){
-            foreach ($request->file('files') as $file) {
-
-                $filename = '/images/'.$file->getClientOriginalName();
-                $file->move(public_path('images'), $filename);
-                $pictures[] = $filename;
-            }
-            $image->update([
-                'url'=>json_encode($pictures),
-            ]);
-            $denuncia->images()->save($image);
-                
-                
-            return response()->json(['message'=>'image added']);
-        }else{
-            return response()->json(['message'=>'error']);
-        }
+        
+        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Denuncia  $denuncia
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Denuncia $denuncia)
+    public function destroy($id)
     {
-        $denuncia->delete();
+         $image= Image::find($id); 
+         $name = $image->name;
+        $file = '/images/'.$name;
+         $thumbnail = '/uploads/thumbnail/'.$name;
+         Storage::delete([$file, $thumbnail]); // delete from folder $image->delete(); // delete from table return redirect()->back(); 
     }
     public function storeImage(Request $request)
     {
-        $ultimo_id = Denuncia::latest('id')->first()->id;
-        $denuncia = Denuncia::find($ultimo_id);
+        $ultimo_id = Image::latest('id')->first()->id;
+        $mascota = Mascota::find($ultimo_id);
         if ($request->hasFile('files')){
             foreach ($request->file('files') as $file) {
 
@@ -126,7 +116,7 @@ class DenunciaController extends Controller
                 'url'=>json_encode($pictures),
             ]);
         
-          $denuncia->images()->save($image);
+          $mascota->images()->save($image);
              
                 
             return response()->json(['message'=>'image added']);

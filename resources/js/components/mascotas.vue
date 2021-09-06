@@ -8,7 +8,7 @@
 
     <!-- Modal -->
     <div  class="modal" :class="{mostrar:modal}">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
 
         <!-- Modal content-->
             <div class="modal-content">
@@ -45,10 +45,12 @@
                         
                     </div>
                     <div>
-                         <label for="fotos">fotos</label>
-                        <input type="File">
+                        <label for="files">fotos</label>
+                        <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
                     </div>
-                
+                    <div class="m-auto">
+                        <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
@@ -67,21 +69,27 @@
         <th scope="col">id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Detalle</th>
+        <th scope="col">Imagen</th>
         <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
     </thead>
     <tbody>
         <tr v-for="mas in mascotas" :key="mas.id">
-        <th scope="row">{{ mas.id }}</th>
-        <td>{{ mas.nombre }}</td>
-        <td>{{ mas.detalle }}</td>
-        <td>
-            <button  @click="modificar=true; abrirModal(mas)" class="btn btn-warning">Editar</button>
-        </td>
-        <td>
-            <button @click="eliminar(mas.id)" class="btn btn-danger"  >Eliminar</button>
+            
+            <th scope="row">{{ mas.id }}</th>
+                <td>{{ mas.nombre }}</td>
+                <td>{{ mas.detalle }}</td>
+                <td v-for="picture,index in pictures" :key="index">
+                    <img v-for="(img, index) in picture.images" :key="index" :src="img" alt="" width="10px" height="10px">
+                </td>
+                <td>
+                    <button  @click="modificar=true; abrirModal(mas);" class="btn btn-warning">Editar</button>
+                </td>
+                <td>
+                    <button @click="eliminar(mas.id)" class="btn btn-danger"  >Eliminar</button>
 
-        </td>
+                </td>
+            
         </tr>
         
     </tbody>
@@ -95,6 +103,11 @@
 export default {
     data(){
         return {
+            /*****Imagenes */
+            id_image:0,
+                images:[],
+                pictures:'',
+                
             /*****Etapas */
             etapa:{
                 id:'',
@@ -127,6 +140,7 @@ export default {
 
         }
     },
+    /*-----------METODOS-----*/
     methods: {
         async listar(){
            const res = await axios.get('mascotas');
@@ -135,13 +149,14 @@ export default {
         async guardar(){
             if (this.modificar){
                 const res = await axios.put('/mascotas/' + this.id, this.mascota)
-
+                
                 
             }else{
                 console.log('raza', this.razaSeleccionada)
                 const res = await axios.post('mascotas/',this.mascota)
-                            
+                
             }
+            this.uploadImages();
             this.cerrarModal();
             this.listar();
             
@@ -156,24 +171,88 @@ export default {
            const res = await axios.get('/razas');
             this.razas=res.data;
         },
+        async listarImagenes(){
+           const res = await axios.get('/imagenes');
+            this.images=res.data;
+        },
         /*********ETAPAS***/
         async listarEtapas(){
            const res = await axios.get('/etapas');
             this.etapas=res.data;
         },
 
+        imageChange(){
+            for (let i = 0; i < this.$refs.files.files.length; i++) {
+                
+                this.images.push(this.$refs.files.files[i]);
+                console.log(this.images);
+            }
+        },
+        uploadImages(){
+            
+            var self=this;
+            let formData = new FormData();
+            for (let i = 0; i < this.images.length; i++) {
+                
+                let file = self.images[i];
+                formData.append('files['+ i +']', file);
+
+            }
+            
+            const config = {
+                headers: { "Content-Type" : "multipart/form-data"}
+            }
+            
+           
+            if(this.modificar){
+                formData.append('_method','PATCH');
+                axios.post('mascotas/' + this.id,formData,config) 
+                .then(response =>{
+                self.$refs.files.value = '';
+                self.images = [];
+                console.log('Si se modifico');
+                })
+                .catch(error =>{
+                    console.log(error);
+                })
+            }else{
+            axios.post('/mascota/imagenes/',formData,config )
+            .then(response =>{
+             self.$refs.files.value = '';
+            self.images = [];
+                    
+            console.log('Si se guardo');
+                })
+                .catch(error =>{
+                    console.log(error);
+                })
+            }
+            
+            
+        },
+        
+
         abrirModal(data={}){
             this.modal = 1;
             if (this.modificar) {
                 this.id = data.id;
+                this.id_image=data.id_image;
                 this.tituloModal = "Editar Mascota";
                 this.mascota.nombre = data.nombre;
                 this.mascota.detalle = data.detalle;
+                this.mascota.raza_id = data.raza_id;
+                this.mascota.etapa_id = data.etapa_id;
+                
+              
+               
             }else{
                 this.id = 0;
                 this.tituloModal = 'Registrar Mascota';
                 this.mascota.nombre ='' ;
                 this.mascota.detalle = '';
+                this.mascota.raza_id = null;
+                this.mascota.etapa_id = null;
+                
             }
 
         },
@@ -185,6 +264,8 @@ export default {
         this.listar();
         this.listarRazas();
         this.listarEtapas();
+        
+       
     }
     
 }

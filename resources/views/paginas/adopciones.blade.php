@@ -52,6 +52,7 @@
                     <ul>
                    
                         @foreach ($mascotas as $mascota)
+                            @foreach ($mascota->images as $img)
                             <li class="male top">
                                 <a href="single-puppie.html">
                                     <div class="more">
@@ -60,11 +61,15 @@
                                         <span class="wks">Necesita un hogar</span>
                                         <span class="txt">Cel: 69037331</span>
                                     </div>
-                                    <img src="img/puppies/puppie01.jpeg" alt="//"/>
+                                    @php
+                                        $url = json_decode($img->url)
+                                    @endphp
+                                    <img src="{{ $url[0] }}" alt="//"/>
                                     <span class="name">{{ $mascota->nombre }}</span>
                                     
                                 </a>
                             </li>
+                            @endforeach 
                         @endforeach 
                       
                     </ul>

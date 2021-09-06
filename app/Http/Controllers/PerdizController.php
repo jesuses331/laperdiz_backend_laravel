@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Denuncia;
 use App\Models\Denuncias;
+use App\Models\Image;
 use App\Models\Mascota;
+use App\Models\Noticia;
 use App\Models\Noticias;
 use Illuminate\Http\Request;
 
@@ -19,13 +21,15 @@ class PerdizController extends Controller
     {   
         $denuncias = Denuncia::paginate();
         $mascotas= Mascota::paginate();
-        return view('paginas.index', compact('mascotas','denuncias'));
+        $images = Image::all();
+        return view('paginas.index', compact('mascotas','denuncias','images'));
     }
 
     public function adopciones()
     {
         $mascotas = Mascota::paginate();
-        return view('paginas.adopciones', compact('mascotas'));
+        $images = Image::all();
+        return view('paginas.adopciones', compact('mascotas','images'));
     }
 
     /**
@@ -40,7 +44,7 @@ class PerdizController extends Controller
     }
     public function noticias()
     {
-        $noticias = Noticias::paginate();
+        $noticias = Noticia::paginate();
         return view('paginas.noticias', compact('noticias'));
     }
 

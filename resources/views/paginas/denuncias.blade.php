@@ -20,6 +20,9 @@
                     $b=true;
                 @endphp
                 @foreach ($denuncias as $denuncia)
+                    @foreach ($denuncia->images as $img)
+                        
+                    
                     @if ($b)
                         <div class="row service">
                             <div class="col-md-7">
@@ -28,8 +31,12 @@
                                 <p>Necesita una Madre Nodriza para poder alimentarlo hasta que alguien de buen corazon lo pueda adoptar</p>
                                 <a href="#">&srarr; Leer mas...</a>
                             </div>
-                            <div class="col-md-5">
-                                <img src="img/services/abandonado.jpeg" alt="//">
+                            @php
+                                $url = json_decode($img->url)
+                            @endphp
+                            <div class="col-md-5"><img src="{{ $url[0] }}" alt="//">
+                               
+                                
                             </div>
                         </div>
                         @php
@@ -38,7 +45,11 @@
                     @else
                         <div class="row service">
                         
-                            <div class="col-md-5"><img src="img/services/caballos.jpeg" alt="//"></div>
+                            <div class="col-md-5">
+                            @php
+                                $url = json_decode($img->url)
+                            @endphp
+                            <img src="{{ $url[0] }}" alt="//">
                             <div class="col-md-7">
                                 <h2>{{ $denuncia->titulo }}</h2>
                                 <p>{{ $denuncia->descripcion }}</p>
@@ -50,7 +61,7 @@
                         @endphp
                     @endif
 
-                    
+                    @endforeach
                 @endforeach
 				
 			</div>

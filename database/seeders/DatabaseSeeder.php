@@ -64,10 +64,10 @@ class DatabaseSeeder extends Seeder
         $etapa5->save();
 
         /*************MASCOTA*********** */
-        Mascota::factory(10)->create();
+        //Mascota::factory(10)->create();
         
         /***************Denuncias************ */
-        Denuncia::factory(10)->create();
+        //Denuncia::factory(10)->create();
 
          /***************Noticias************ */
          Noticia::factory(10)->create();

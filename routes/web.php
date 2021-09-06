@@ -3,6 +3,7 @@
 use App\Http\Controllers\DenunciaController;
 use App\Http\Controllers\DenunciasController;
 use App\Http\Controllers\EtapaController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NoticiasController;
@@ -41,3 +42,10 @@ Route::resource('/razas', RazaController::class);
 Route::resource('/etapas', EtapaController::class);
 Route::resource('/denuncias', DenunciaController::class);
 Route::resource('/noticias', NoticiaController::class);
+Route::resource('/imagenes', ImageController::class);
+
+
+
+
+Route::post('/denuncia/imagenes/', [DenunciaController::class, 'storeImage']);
+Route::post('/mascota/imagenes/', [MascotaController::class, 'storeImage']);

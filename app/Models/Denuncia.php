@@ -14,4 +14,8 @@ class Denuncia extends Model
         'ciudad',
         
     ];
+
+    public function images(){
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

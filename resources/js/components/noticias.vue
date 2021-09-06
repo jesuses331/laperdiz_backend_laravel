@@ -45,9 +45,10 @@
                         
                     </div>-->
                     <div>
-                         <label for="fotos">fotos</label>
-                        <input type="File">
+                        <label for="files">fotos</label>
+                        <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
                     </div>
+
                 
 
                 </div>

@@ -1964,9 +1964,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      /*****Imagenes */
+      id_image: 0,
+      images: [],
+      pictures: '',
+
       /*********Mascotas */
       id: 0,
       denuncia: {
@@ -2027,18 +2039,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 res = _context2.sent;
-                _context2.next = 10;
+                _context2.next = 9;
                 break;
 
               case 6:
-                console.log('raza', _this2.razaSeleccionada);
-                _context2.next = 9;
+                _context2.next = 8;
                 return axios.post('denuncias/', _this2.denuncia);
 
-              case 9:
+              case 8:
                 _res = _context2.sent;
 
-              case 10:
+              case 9:
+                _this2.uploadImages();
+
                 _this2.cerrarModal();
 
                 _this2.listar();
@@ -2108,6 +2121,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
+    },
+    imageChange: function imageChange() {
+      for (var i = 0; i < this.$refs.files.files.length; i++) {
+        this.images.push(this.$refs.files.files[i]);
+        console.log(this.images);
+      }
+    },
+    uploadImages: function uploadImages() {
+      var self = this;
+      var formData = new FormData();
+
+      for (var i = 0; i < this.images.length; i++) {
+        var file = self.images[i];
+        formData.append('files[' + i + ']', file);
+      }
+
+      var config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+
+      if (this.modificar) {
+        formData.append('_method', 'PATCH');
+        axios.post('denuncias/' + this.id, formData, config).then(function (response) {
+          self.$refs.files.value = '';
+          self.images = [];
+          console.log('Si se modifico');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      } else {
+        axios.post('/denuncia/imagenes/', formData, config).then(function (response) {
+          self.$refs.files.value = '';
+          self.images = [];
+          console.log('Si se guardo');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
     }
   },
   created: function created() {
@@ -2229,9 +2282,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      /*****Imagenes */
+      id_image: 0,
+      images: [],
+      pictures: '',
+
       /*****Etapas */
       etapa: {
         id: '',
@@ -2261,6 +2327,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       mascotas: []
     };
   },
+
+  /*-----------METODOS-----*/
   methods: {
     listar: function listar() {
       var _this = this;
@@ -2318,11 +2386,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _res = _context2.sent;
 
               case 10:
+                _this2.uploadImages();
+
                 _this2.cerrarModal();
 
                 _this2.listar();
 
-              case 12:
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -2381,9 +2451,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-
-    /*********ETAPAS***/
-    listarEtapas: function listarEtapas() {
+    listarImagenes: function listarImagenes() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
@@ -2393,11 +2461,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios.get('/etapas');
+                return axios.get('/imagenes');
 
               case 2:
                 res = _context5.sent;
-                _this5.etapas = res.data;
+                _this5.images = res.data;
 
               case 4:
               case "end":
@@ -2407,20 +2475,91 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
+
+    /*********ETAPAS***/
+    listarEtapas: function listarEtapas() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return axios.get('/etapas');
+
+              case 2:
+                res = _context6.sent;
+                _this6.etapas = res.data;
+
+              case 4:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }))();
+    },
+    imageChange: function imageChange() {
+      for (var i = 0; i < this.$refs.files.files.length; i++) {
+        this.images.push(this.$refs.files.files[i]);
+        console.log(this.images);
+      }
+    },
+    uploadImages: function uploadImages() {
+      var self = this;
+      var formData = new FormData();
+
+      for (var i = 0; i < this.images.length; i++) {
+        var file = self.images[i];
+        formData.append('files[' + i + ']', file);
+      }
+
+      var config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+
+      if (this.modificar) {
+        formData.append('_method', 'PATCH');
+        axios.post('mascotas/' + this.id, formData, config).then(function (response) {
+          self.$refs.files.value = '';
+          self.images = [];
+          console.log('Si se modifico');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      } else {
+        axios.post('/mascota/imagenes/', formData, config).then(function (response) {
+          self.$refs.files.value = '';
+          self.images = [];
+          console.log('Si se guardo');
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      }
+    },
     abrirModal: function abrirModal() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.modal = 1;
 
       if (this.modificar) {
         this.id = data.id;
+        this.id_image = data.id_image;
         this.tituloModal = "Editar Mascota";
         this.mascota.nombre = data.nombre;
         this.mascota.detalle = data.detalle;
+        this.mascota.raza_id = data.raza_id;
+        this.mascota.etapa_id = data.etapa_id;
       } else {
         this.id = 0;
         this.tituloModal = 'Registrar Mascota';
         this.mascota.nombre = '';
         this.mascota.detalle = '';
+        this.mascota.raza_id = null;
+        this.mascota.etapa_id = null;
       }
     },
     cerrarModal: function cerrarModal() {
@@ -2455,6 +2594,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -39813,7 +39953,7 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: {
                   id: "descripcion",
-                  placeholder: "ciudad",
+                  placeholder: "descripcion",
                   type: "text"
                 },
                 domProps: { value: _vm.denuncia.descripcion },
@@ -39852,7 +39992,32 @@ var render = function() {
                   }
                 }
               })
-            ])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "files",
+                staticClass: "hidden",
+                attrs: {
+                  type: "file",
+                  name: "files[]",
+                  id: "files",
+                  multiple: ""
+                },
+                on: { change: _vm.imageChange }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "m-auto" },
+              _vm._l(_vm.images, function(image, index) {
+                return _c("p", { key: index }, [_vm._v(_vm._s(image.name))])
+              }),
+              0
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -40009,7 +40174,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "modal", class: { mostrar: _vm.modal } }, [
-      _c("div", { staticClass: "modal-dialog" }, [
+      _c("div", { staticClass: "modal-dialog modal-dialog-scrollable" }, [
         _c("div", { staticClass: "modal-content" }, [
           _c("div", { staticClass: "modal-header" }, [
             _c("h4", { staticClass: "modal-title" }, [
@@ -40202,7 +40367,30 @@ var render = function() {
               _c("p", [_vm._v(_vm._s(_vm.mascota.etapa_id))])
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", [
+              _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "files",
+                staticClass: "hidden",
+                attrs: {
+                  type: "file",
+                  name: "files[]",
+                  id: "files",
+                  multiple: ""
+                },
+                on: { change: _vm.imageChange }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "m-auto" },
+              _vm._l(_vm.images, function(image, index) {
+                return _c("p", { key: index }, [_vm._v(_vm._s(image.name))])
+              }),
+              0
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -40241,49 +40429,73 @@ var render = function() {
     _c("br"),
     _vm._v(" "),
     _c("table", { staticClass: "table " }, [
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
         _vm._l(_vm.mascotas, function(mas) {
-          return _c("tr", { key: mas.id }, [
-            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(mas.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(mas.nombre))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(mas.detalle))]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-warning",
-                  on: {
-                    click: function($event) {
-                      _vm.modificar = true
-                      _vm.abrirModal(mas)
+          return _c(
+            "tr",
+            { key: mas.id },
+            [
+              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(mas.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(mas.nombre))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(mas.detalle))]),
+              _vm._v(" "),
+              _vm._l(_vm.pictures, function(picture, index) {
+                return _c(
+                  "td",
+                  { key: index },
+                  _vm._l(picture.images, function(img, index) {
+                    return _c("img", {
+                      key: index,
+                      attrs: {
+                        src: img,
+                        alt: "",
+                        width: "10px",
+                        height: "10px"
+                      }
+                    })
+                  }),
+                  0
+                )
+              }),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-warning",
+                    on: {
+                      click: function($event) {
+                        _vm.modificar = true
+                        _vm.abrirModal(mas)
+                      }
                     }
-                  }
-                },
-                [_vm._v("Editar")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  on: {
-                    click: function($event) {
-                      return _vm.eliminar(mas.id)
+                  },
+                  [_vm._v("Editar")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: {
+                      click: function($event) {
+                        return _vm.eliminar(mas.id)
+                      }
                     }
-                  }
-                },
-                [_vm._v("Eliminar")]
-              )
-            ])
-          ])
+                  },
+                  [_vm._v("Eliminar")]
+                )
+              ])
+            ],
+            2
+          )
         }),
         0
       )
@@ -40295,16 +40507,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { attrs: { for: "fotos" } }, [_vm._v("fotos")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "File" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
@@ -40312,6 +40514,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Detalle")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Imagen")]),
         _vm._v(" "),
         _c(
           "th",
@@ -40450,7 +40654,21 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", [
+              _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "files",
+                staticClass: "hidden",
+                attrs: {
+                  type: "file",
+                  name: "files[]",
+                  id: "files",
+                  multiple: ""
+                },
+                on: { change: _vm.imageChange }
+              })
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -40489,7 +40707,7 @@ var render = function() {
     _c("br"),
     _vm._v(" "),
     _c("table", { staticClass: "table " }, [
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "tbody",
@@ -40545,16 +40763,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("label", { attrs: { for: "fotos" } }, [_vm._v("fotos")]),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "File" } })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

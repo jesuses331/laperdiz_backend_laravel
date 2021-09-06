@@ -14,4 +14,8 @@ class Noticia extends Model
         'ciudad',
         
     ];
+
+    public function images(){
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }
