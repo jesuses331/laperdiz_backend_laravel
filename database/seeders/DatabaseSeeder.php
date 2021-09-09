@@ -8,6 +8,7 @@ use App\Models\Etapa;
 use App\Models\Mascota;
 use App\Models\Noticia;
 use App\Models\Noticias;
+use App\Models\Raza;
 use App\Models\Talla;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
+        //\App\Models\User::factory(10)->create();
         
 
         /*********TALLAS****/
@@ -39,7 +40,11 @@ class DatabaseSeeder extends Seeder
 
         /************Razas*********** */
 
-        \App\Models\Raza::factory(10)->create();
+        $raza1 = new Raza();
+        $raza1->nombre = 'Mestizo' ;
+        $raza1->talla_id = 3;
+        $raza1->save();
+
 
         /*************ETAPAS****** */
 
@@ -70,6 +75,6 @@ class DatabaseSeeder extends Seeder
         //Denuncia::factory(10)->create();
 
          /***************Noticias************ */
-         Noticia::factory(10)->create();
+        // Noticia::factory(10)->create();
     }
 }

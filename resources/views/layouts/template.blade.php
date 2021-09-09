@@ -66,7 +66,6 @@
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li @if(request()->is('/')) class="active" @endif><a href="{{ url('/') }}">Inicio</a></li>
-			<li ><a href="#">Editorial</a></li>
 			<li @if(request()->is('adopciones')) class="active" @endif><a href="{{ route('paginas.adopciones') }}">{{ __('Adopciones') }}</a></li>
 			<li @if(request()->is('denuncia')) class="active" @endif><a href="{{ route('paginas.denuncias') }}">{{ __('Denuncias') }}</a></li>
 			<li @if(request()->is('noticia')) class="active" @endif><a href="{{ route('paginas.noticias') }}">Noticias</a></li>
@@ -78,7 +77,7 @@
 					<li ><a href="#">Transporte</a></li>
 					<li><a href="#">Alojamiento</a></li>
 					<li ><a href="#">Otros Servicios</a></li>
-					<li ><a href="#">Cursos y capacitaciones</a></li>
+					<li ><a href="{{ route('paginas.capacitaciones') }}">Cursos y capacitaciones</a></li>
 				</ul>
 			</li>
 			<li class="dropdown ">
@@ -95,10 +94,9 @@
 				<ul class="dropdown-menu">
 					<li ><a href="#">Leyes Vigentes en Bolivia</a></li>
 					<li><a href="#">Legislacion Internacional</a></li>
-					
-					
 				</ul>
 			</li>
+			<li ><a href="{{ route('home') }}">Iniciar Sesion</a></li>
 			<!--<li><a href="pricing-table.html">Pricing</a></li>
 		</ul>
 

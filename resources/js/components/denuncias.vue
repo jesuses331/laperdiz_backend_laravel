@@ -20,12 +20,12 @@
                 <div class="modal-body">
                     <div>
                         <label for="titulo">Titulo</label>
-                        
                         <input v-model="denuncia.titulo" id="titulo" placeholder="Titulo" type="text" class="form-control" >
                     </div>
                     <div>
                         <label for="descripcion">Descripcion</label>
-                         <input v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="text" class="form-control" >
+                        <textarea v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"></textarea>
+                          
                         
                     </div>
                     <div>

@@ -22,6 +22,8 @@ window.Vue = require('vue').default;
 Vue.component('mascotas', require('./components/mascotas.vue').default);
 Vue.component('denuncias', require('./components/denuncias.vue').default);
 Vue.component('noticias', require('./components/noticias.vue').default);
+Vue.component('cursos', require('./components/cursos.vue').default);
+Vue.component('padrinos', require('./components/padrinos.vue').default);
 
 
 /**

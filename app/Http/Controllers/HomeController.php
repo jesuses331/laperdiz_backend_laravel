@@ -33,4 +33,12 @@ class HomeController extends Controller
     {
         return view('listaNoticias');
     }
+    public function cursos()
+    {
+        return view('listaCursos');
+    }
+    public function padrinos()
+    {
+        return view('listaPadrinos');
+    }
 }

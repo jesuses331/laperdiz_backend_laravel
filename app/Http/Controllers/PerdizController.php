@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use App\Models\Denuncia;
 use App\Models\Denuncias;
 use App\Models\Image;
@@ -46,6 +47,11 @@ class PerdizController extends Controller
     {
         $noticias = Noticia::paginate();
         return view('paginas.noticias', compact('noticias'));
+    }
+    public function capacitaciones()
+    {
+        $cursos = Curso::paginate();
+        return view('paginas.capacitaciones', compact('cursos'));
     }
 
     /**

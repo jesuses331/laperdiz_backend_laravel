@@ -107,7 +107,6 @@ class ImageController extends Controller
         $mascota = Mascota::find($ultimo_id);
         if ($request->hasFile('files')){
             foreach ($request->file('files') as $file) {
-
                 $filename = '/images/'.$file->getClientOriginalName();
                 $file->move(public_path('images'), $filename);
                 $pictures[] = $filename;

@@ -98,13 +98,8 @@
 			<div class="row">
 				<div class="col-xs-12 ">
 					<div class="grid">
-						<ul>
-							
-							
-							
-								
+						<ul> 
                             @foreach ($mascotas as $mascota)
-								@foreach ($mascota->images as $img)
                                     <li class="male top">
                                         <a href="dogs.html">
                                             <div class="more">
@@ -113,15 +108,15 @@
                                                 <span class="wks">9 Wks F</span>
                                                 <span class="txt">Maltese</span>
                                             </div>
+											@foreach ($mascota->images as $img)
 												@php
 													$url = json_decode($img->url)
 												@endphp
 												<img src="{{ $url[0] }}" alt="//"/>
-
-                                            <span class="name">{{ $mascota->nombre }}</span>
+                                            	<span class="name">{{ $mascota->nombre }}</span>
                                         </a>
                                     </li>    
-									@endforeach
+								@endforeach
                             @endforeach
 							
 							
