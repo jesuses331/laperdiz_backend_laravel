@@ -41,4 +41,8 @@ class HomeController extends Controller
     {
         return view('listaPadrinos');
     }
+    public function razas()
+    {
+        return view('listaRazas');
+    }
 }

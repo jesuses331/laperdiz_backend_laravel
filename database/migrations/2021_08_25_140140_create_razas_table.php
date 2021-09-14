@@ -15,7 +15,7 @@ class CreateRazasTable extends Migration
     {
         Schema::create('razas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
+            $table->string('nombre')->unique();
             $table->unsignedBigInteger('talla_id');
 
             $table->foreign('talla_id')->references('id')

@@ -11,6 +11,7 @@ use App\Http\Controllers\NoticiasController;
 use App\Http\Controllers\PadrinoController;
 use App\Http\Controllers\PerdizController;
 use App\Http\Controllers\RazaController;
+use App\Http\Controllers\TallaController;
 use Database\Factories\NoticiasFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,9 +42,12 @@ Route::get('/listaDenuncias', [App\Http\Controllers\HomeController::class, 'denu
 Route::get('/listaNoticias', [App\Http\Controllers\HomeController::class, 'noticias'])->name('listaNoticias');
 Route::get('/listaCursos', [App\Http\Controllers\HomeController::class, 'cursos'])->name('listaCursos');
 Route::get('/listaPadrinos', [App\Http\Controllers\HomeController::class, 'padrinos'])->name('listaPadrinos');
+Route::get('/listaRazas', [App\Http\Controllers\HomeController::class, 'razas'])->name('listaRazas');
+
 
 Route::resource('/mascotas', MascotaController::class);
 Route::resource('/razas', RazaController::class);
+Route::resource('/tallas', TallaController::class);
 Route::resource('/etapas', EtapaController::class);
 Route::resource('/denuncias', DenunciaController::class);
 Route::resource('/noticias', NoticiaController::class);

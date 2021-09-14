@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Raza extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'nombre',
+        'talla_id'
+    ];
 
     public function tallas(){
         return $this->belongsTo('App\Models\Talla');

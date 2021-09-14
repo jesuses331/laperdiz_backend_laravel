@@ -14,7 +14,7 @@ class TallaController extends Controller
      */
     public function index()
     {
-        //
+        return Talla::get();
     }
 
     /**

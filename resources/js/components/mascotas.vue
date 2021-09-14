@@ -17,26 +17,22 @@
                     <button @click="cerrarModal()" type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal Body-->
-                <div class="modal-body">
-                    <div>
+                <div class="modal-body row">
+                    <div class="col-6">
                         <label for="nombre">Nombre</label>
                         <input v-model="mascota.nombre" id="nombre" placeholder="Nombre de la mascota" type="text" class="form-control" >
                     </div>
-                    <div>
-                        <label for="detalle">Detalle</label>
-                        <input v-model="mascota.detalle" id="detalle" placeholder="Detalle de la mascota" type="text" class="form-control" >
-                    </div>
-                    <div>
-                        <label for="razas">Raza</label>
+                   
+                    <div class="col-6">
+                        <label for="razas">Raza</label>  
                         <select v-model="mascota.raza_id"  id="razas" class="form-control">
                             <option value="null">Seleccione una raza</option>
                            <option v-for="raz in razas" :key="raz.id" v-bind:value="raz.id">{{raz.nombre}}</option>
                         </select>
-                        <p>{{mascota.raza_id}}</p>
-                        
                     </div>
-                     <div>
-                        <label for="etapas">Etapas</label>
+                    <div class="col-6">
+
+                       <label for="etapas">Etapas</label>
                         <select v-model="mascota.etapa_id"  id="etapas" class="form-control">
                             <option value="null">Seleccione una etapa</option>
                            <option v-for="etapa in etapas" :key="etapa.id" v-bind:value="etapa.id">{{etapa.nombre}}</option>
@@ -44,7 +40,11 @@
                         <p>{{mascota.etapa_id}}</p>
                         
                     </div>
-                    <div>
+                    <div class="col-12">
+                        <label for="detalle">Detalle</label>
+                         <textarea v-model="mascota.detalle" id="descripcion" placeholder="Detalles" type="textarea" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="py-3 m-3">
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
                     </div>
@@ -103,6 +103,11 @@
 export default {
     data(){
         return {
+            talla:{
+                id:'',
+                nombre:'',
+            },
+             tallas:[],
             /*****Imagenes */
             id_image:0,
                 images:[],
@@ -115,9 +120,10 @@ export default {
             },
             etapas:[],
             /********RAZAS */
+            id_raza:0,
             raza:{
-                id:'',
                 nombre:'',
+                talla_id:null,
                 
             },
             razaSeleccionada:null,
@@ -143,8 +149,9 @@ export default {
     /*-----------METODOS-----*/
     methods: {
         async listar(){
-           const res = await axios.get('mascotas');
+            const res = await axios.get('mascotas');
             this.mascotas=res.data;
+            
         },
         async guardar(){
             if (this.modificar){
@@ -167,6 +174,10 @@ export default {
         },
 
         /*********RAZAS***/
+        async listarTallas(){
+           const res = await axios.get('/tallas');
+            this.tallas=res.data;
+        },
         async listarRazas(){
            const res = await axios.get('/razas');
             this.razas=res.data;
@@ -261,9 +272,11 @@ export default {
         },
     },
     created(){
-        this.listar();
+        
+        this.listarTallas();
         this.listarRazas();
         this.listarEtapas();
+        this.listar();
         
        
     }

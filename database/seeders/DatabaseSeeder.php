@@ -10,7 +10,9 @@ use App\Models\Noticia;
 use App\Models\Noticias;
 use App\Models\Raza;
 use App\Models\Talla;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,8 +24,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //\App\Models\User::factory(10)->create();
-        
-
+        $user = new User();
+        $user->name = "admin";
+        $user->email = "admin@gmail.com";
+        $user->password = Hash::make('123456789');
+        $user->save();
         /*********TALLAS****/
 
         $talla1 = new Talla();
@@ -40,7 +45,7 @@ class DatabaseSeeder extends Seeder
 
         /************Razas*********** */
 
-        $raza1 = new Raza();
+       /* $raza1 = new Raza();
         $raza1->nombre = 'Mestizo' ;
         $raza1->talla_id = 3;
         $raza1->save();

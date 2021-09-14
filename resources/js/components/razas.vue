@@ -1,10 +1,10 @@
 <template>
     <div>
-        <h1 class="text-center">Denuncias</h1>
+        <h1 class="text-center">Gestionar Razas</h1>
         <hr>
 
     <!-- Trigger the modal with a button -->
-    <button @click="modificar=false; abrirModal()" type="button" class="btn btn-success btn-lg" >Hacer Denuncias</button>
+    <button @click="modificar=false; abrirModal()" type="button" class="btn btn-success btn-lg" >Registrar Razas</button>
 
     <!-- Modal -->
     <div  class="modal" :class="{mostrar:modal}">
@@ -19,25 +19,24 @@
                 <!-- Modal Body-->
                 <div class="modal-body">
                     <div>
-                        <label for="titulo">Titulo</label>
-                        <input v-model="denuncia.titulo" id="titulo" placeholder="Titulo" type="text" class="form-control" >
+                        <label for="nombre">Nombre</label>
+                        <input v-model="raza.nombre" id="nombre" placeholder="Nombre" type="text" class="form-control" >
                     </div>
-                    <div>
-                        <label for="descripcion">Descripcion</label>
-                        <textarea v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"></textarea>
+                    <div >
+                       <label for="tallas">Talla</label>
+                        <select v-model="raza.talla_id"  id="tallas" class="form-control">
+                            <option value="null">Seleccione una talla</option>
+                           <option v-for="talla in tallas" :key="talla.id" v-bind:value="talla.id">{{talla.nombre}}</option>
+                        </select>
                     </div>
-                    <div>
-                        <label for="ciudad">Ciudad</label>
-                        <input v-model="denuncia.ciudad" id="ciudad" placeholder="ciudad" type="text" class="form-control" >
-                    </div>
-                    <div>
+                   <!-- <div>
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
                     </div>
                     <div class="m-auto">
                         <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
                     </div>
-                      <!--  <input  id="detalle" placeholder="Detalle de la mascota" type="text" class="form-control" >
+                        <input  id="detalle" placeholder="Detalle de la mascota" type="text" class="form-control" >
                     </div>
                     <div>
                         <label for="razas">Raza</label>
@@ -75,18 +74,16 @@
     <thead>
         <tr>
         <th scope="col">id</th>
-        <th scope="col">titulo</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Ciudad</th>
+        <th scope="col">Nombre</th>
+        
         <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="den in denuncias" :key="den.id">
-        <th scope="row">{{ den.id }}</th>
-        <td>{{ den.titulo }}</td>
-        <td>{{ den.descripcion }}</td>
-        <td>{{ den.ciudad }}</td>
+        <tr v-for="raza in razas" :key="raza.id">
+        <th scope="row">{{ raza.id }}</th>
+        <td>{{ raza.nombre }}</td>
+        
         <td>
             <button  @click="modificar=true; abrirModal(den)" class="btn btn-warning">Editar</button>
         </td>
@@ -107,6 +104,11 @@
 export default {
     data(){
         return {
+            talla:{
+                id:'',
+                nombre:'',
+            },
+             tallas:[],
             /*****Imagenes */
             id_image:0,
                 images:[],
@@ -114,19 +116,15 @@ export default {
            
             /*********Mascotas */
             id:0,
-            denuncia:{
-                titulo:'',
-                fecha:'1992-03-07',
-                descripcion:'',
-                ciudad:'',
-                
-
+            raza:{
+                nombre:'',
+                talla_id:null
             },
             denunciaSeleccionada:null,
             modificar:true,
             modal:0,
             tituloModal:'',
-            denuncias:[],
+            razas:[],
 
 
 
@@ -135,26 +133,30 @@ export default {
     methods: {
         
         async listar(){
-           const res = await axios.get('denuncias');
-            this.denuncias=res.data;
+           const res = await axios.get('razas');
+            this.razas=res.data;
+        },
+         async listarTallas(){
+           const res = await axios.get('tallas');
+            this.tallas=res.data;
         },
        async guardar(){
             if (this.modificar){
-                const res = await axios.put('/denuncias/' + this.id, this.denuncia)
+                const res = await axios.put('/razas/' + this.id, this.raza)
 
                 
             }else{
                
-                const res = await axios.post('denuncias/',this.denuncia)
+                const res = await axios.post('razas/',this.raza)
                             
             }
-            this.uploadImages();
+           // this.uploadImages();
             this.cerrarModal();
             this.listar();
             
         },
         async eliminar (id){
-           const res = await axios.delete('denuncias/'+ id);
+           const res = await axios.delete('razas/'+ id);
             this.listar();
         },
 
@@ -173,16 +175,16 @@ export default {
             this.modal = 1;
             if (this.modificar) {
                 this.id = data.id;
-                this.tituloModal = "Editar Denuncia";
-                this.denuncia.fecha = '1992-03-07';
-                this.denuncia.titulo = data.titulo;
-                this.denuncia.descripcion = data.descripcion;
-                this.denuncia.ciudad = data.ciudad;
+                this.tituloModal = "Editar Raza";
+                this.raza.nombre = data.nombre;
+               
+               
+                
             }else{
                 this.id = 0;
-                this.tituloModal = 'Registrar Denuncia';
-                this.denuncia.titulo ='' ;
-                this.denuncia.descripcion = '';
+                this.tituloModal = 'Registrar Razas';
+                this.raza.nombre = '';
+                
             }
             
 
@@ -215,7 +217,7 @@ export default {
            
             if(this.modificar){
                 formData.append('_method','PATCH');
-                axios.post('denuncias/' + this.id,formData,config) 
+                axios.post('padrinos/' + this.id,formData,config) 
                 .then(response =>{
                 self.$refs.files.value = '';
                 self.images = [];
@@ -225,7 +227,7 @@ export default {
                     console.log(error);
                 })
             }else{
-            axios.post('/denuncia/imagenes/',formData,config )
+            axios.post('/padrinos/imagenes/',formData,config )
             .then(response =>{
              self.$refs.files.value = '';
             self.images = [];
@@ -242,7 +244,7 @@ export default {
     },
     created(){
        this.listar();
-        
+        this.listarTallas();
        
        
     }

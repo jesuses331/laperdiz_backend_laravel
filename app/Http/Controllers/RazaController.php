@@ -37,7 +37,7 @@ class RazaController extends Controller
     {
         $raza = new Raza();
         $raza->create($request->all());
-        $raza->save();
+       
     }
 
     /**
