@@ -2781,7 +2781,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.get('/tallas');
+                return axios.get('tallas');
 
               case 2:
                 res = _context4.sent;
@@ -2805,7 +2805,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return axios.get('/razas');
+                return axios.get('razas');
 
               case 2:
                 res = _context5.sent;
@@ -2855,7 +2855,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return axios.get('/etapas');
+                return axios.get('etapas');
 
               case 2:
                 res = _context7.sent;
@@ -3828,7 +3828,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }
 
                 _context3.next = 3;
-                return axios.put('/razas/' + _this3.id, _this3.raza);
+                return axios.put('razas/' + _this3.id, _this3.raza);
 
               case 3:
                 res = _context3.sent;
@@ -3933,7 +3933,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.modificar) {
         formData.append('_method', 'PATCH');
-        axios.post('padrinos/' + this.id, formData, config).then(function (response) {
+        axios.post('razas/' + this.id, formData, config).then(function (response) {
           self.$refs.files.value = '';
           self.images = [];
           console.log('Si se modifico');

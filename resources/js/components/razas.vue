@@ -142,7 +142,7 @@ export default {
         },
        async guardar(){
             if (this.modificar){
-                const res = await axios.put('/razas/' + this.id, this.raza)
+                const res = await axios.put('razas/' + this.id, this.raza)
 
                 
             }else{
@@ -217,7 +217,7 @@ export default {
            
             if(this.modificar){
                 formData.append('_method','PATCH');
-                axios.post('padrinos/' + this.id,formData,config) 
+                axios.post('razas/' + this.id,formData,config) 
                 .then(response =>{
                 self.$refs.files.value = '';
                 self.images = [];

@@ -175,11 +175,11 @@ export default {
 
         /*********RAZAS***/
         async listarTallas(){
-           const res = await axios.get('/tallas');
+           const res = await axios.get('tallas');
             this.tallas=res.data;
         },
         async listarRazas(){
-           const res = await axios.get('/razas');
+           const res = await axios.get('razas');
             this.razas=res.data;
         },
         async listarImagenes(){
@@ -188,7 +188,7 @@ export default {
         },
         /*********ETAPAS***/
         async listarEtapas(){
-           const res = await axios.get('/etapas');
+           const res = await axios.get('etapas');
             this.etapas=res.data;
         },
 
