@@ -2381,7 +2381,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context2.next = 8;
-                return axios.post('denuncias/', _this2.denuncia);
+                return axios.post('denuncias', _this2.denuncia);
 
               case 8:
                 _res = _context2.sent;
@@ -2490,7 +2490,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           console.log(error);
         });
       } else {
-        axios.post('/denuncia/imagenes/', formData, config).then(function (response) {
+        axios.post('/denuncia/imagenes', formData, config).then(function (response) {
           self.$refs.files.value = '';
           self.images = [];
           console.log('Si se guardo');
@@ -2900,7 +2900,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           console.log(error);
         });
       } else {
-        axios.post('/mascota/imagenes/', formData, config).then(function (response) {
+        axios.post('/mascota/imagenes', formData, config).then(function (response) {
           self.$refs.files.value = '';
           self.images = [];
           console.log('Si se guardo');
@@ -3141,7 +3141,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 6:
                 console.log(_this2.noticia);
                 _context2.next = 9;
-                return axios.post('noticias/', _this2.noticia);
+                return axios.post('noticias', _this2.noticia);
 
               case 9:
                 _res = _context2.sent;
@@ -3229,7 +3229,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           console.log(error);
         });
       } else {
-        axios.post('/noticia/imagenes/', formData, config).then(function (response) {
+        axios.post('/noticia/imagenes', formData, config).then(function (response) {
           self.$refs.files.value = '';
           self.images = [];
           console.log('Si se guardo');

@@ -145,7 +145,7 @@ export default {
                 
             }else{
                
-                const res = await axios.post('denuncias/',this.denuncia)
+                const res = await axios.post('denuncias',this.denuncia)
                             
             }
             this.uploadImages();
@@ -225,7 +225,7 @@ export default {
                     console.log(error);
                 })
             }else{
-            axios.post('/denuncia/imagenes/',formData,config )
+            axios.post('/denuncia/imagenes',formData,config )
             .then(response =>{
              self.$refs.files.value = '';
             self.images = [];
