@@ -147,7 +147,7 @@ export default {
                 
             }else{
                
-                const res = await axios.post('razas/',this.raza)
+                const res = await axios.post('razas',this.raza)
                             
             }
            // this.uploadImages();

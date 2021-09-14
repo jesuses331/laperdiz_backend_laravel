@@ -3837,7 +3837,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 6:
                 _context3.next = 8;
-                return axios.post('razas/', _this3.raza);
+                return axios.post('razas', _this3.raza);
 
               case 8:
                 _res = _context3.sent;
