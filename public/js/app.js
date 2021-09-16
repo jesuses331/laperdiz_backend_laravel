@@ -42226,6 +42226,22 @@ var render = function() {
                   }
                 }
               })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "py-3 m-3" }, [
+              _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
+              _vm._v(" "),
+              _c("input", {
+                ref: "files",
+                staticClass: "hidden",
+                attrs: {
+                  type: "file",
+                  name: "files[]",
+                  id: "files",
+                  multiple: ""
+                },
+                on: { change: _vm.imageChange }
+              })
             ])
           ]),
           _vm._v(" "),

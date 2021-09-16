@@ -44,11 +44,11 @@
                         <label for="detalle">Detalle</label>
                          <textarea v-model="mascota.detalle" id="descripcion" placeholder="Detalles" type="textarea" class="form-control" rows="5"></textarea>
                     </div>
-                    <!--<div class="py-3 m-3">
+                    <div class="py-3 m-3">
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
                     </div>
-                    <div class="m-auto">
+                   <!-- <div class="m-auto">
                         <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
                     </div>-->
 
