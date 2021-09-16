@@ -163,7 +163,7 @@ export default {
                 const res = await axios.post('mascotas/',this.mascota)
                 
             }
-            this.uploadImages();
+           // this.uploadImages();
             this.cerrarModal();
             this.listar();
             
