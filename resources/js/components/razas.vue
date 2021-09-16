@@ -84,7 +84,7 @@
         <td>{{ raza.nombre }}</td>
         
         <td>
-            <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar{{raza.id}}</button>
+            <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar</button>
             
         </td>
         <td>

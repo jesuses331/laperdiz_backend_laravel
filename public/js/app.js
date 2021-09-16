@@ -2900,7 +2900,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           console.log(error);
         });
       } else {
-        axios.post('/mascota/imagenes/', formData, config).then(function (response) {
+        axios.post('/mascota/imagenes', formData, config).then(function (response) {
           self.$refs.files.value = '';
           self.images = [];
           console.log('Si se guardo');
@@ -42226,32 +42226,7 @@ var render = function() {
                   }
                 }
               })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "py-3 m-3" }, [
-              _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
-              _vm._v(" "),
-              _c("input", {
-                ref: "files",
-                staticClass: "hidden",
-                attrs: {
-                  type: "file",
-                  name: "files[]",
-                  id: "files",
-                  multiple: ""
-                },
-                on: { change: _vm.imageChange }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "m-auto" },
-              _vm._l(_vm.images, function(image, index) {
-                return _c("p", { key: index }, [_vm._v(_vm._s(image.name))])
-              }),
-              0
-            )
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -43231,7 +43206,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Editar" + _vm._s(raza.id))]
+                [_vm._v("Editar")]
               )
             ]),
             _vm._v(" "),

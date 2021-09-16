@@ -44,13 +44,13 @@
                         <label for="detalle">Detalle</label>
                          <textarea v-model="mascota.detalle" id="descripcion" placeholder="Detalles" type="textarea" class="form-control" rows="5"></textarea>
                     </div>
-                    <div class="py-3 m-3">
+                    <!--<div class="py-3 m-3">
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
                     </div>
                     <div class="m-auto">
                         <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
-                    </div>
+                    </div>-->
 
                 </div>
                 <div class="modal-footer">
@@ -227,7 +227,7 @@ export default {
                     console.log(error);
                 })
             }else{
-            axios.post('/mascota/imagenes/',formData,config)
+            axios.post('/mascota/imagenes',formData,config)
             .then(response =>{
              self.$refs.files.value = '';
             self.images = [];
