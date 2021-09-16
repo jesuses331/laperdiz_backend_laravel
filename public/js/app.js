@@ -43225,7 +43225,7 @@ var render = function() {
                   on: {
                     click: function($event) {
                       _vm.modificar = true
-                      _vm.abrirModal(_vm.den)
+                      _vm.abrirModal(raza)
                     }
                   }
                 },
@@ -43240,7 +43240,7 @@ var render = function() {
                   staticClass: "btn btn-danger",
                   on: {
                     click: function($event) {
-                      return _vm.eliminar(_vm.den.id)
+                      return _vm.eliminar(raza.id)
                     }
                   }
                 },

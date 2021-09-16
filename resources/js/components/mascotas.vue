@@ -227,7 +227,7 @@ export default {
                     console.log(error);
                 })
             }else{
-            axios.post('/mascota/imagenes/',formData,config )
+            axios.post('/mascota/imagenes/',formData,config)
             .then(response =>{
              self.$refs.files.value = '';
             self.images = [];

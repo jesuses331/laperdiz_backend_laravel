@@ -85,10 +85,10 @@
         <td>{{ raza.nombre }}</td>
         
         <td>
-            <button  @click="modificar=true; abrirModal(den)" class="btn btn-warning">Editar</button>
+            <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar</button>
         </td>
         <td>
-            <button @click="eliminar(den.id)" class="btn btn-danger">Eliminar</button>
+            <button @click="eliminar(raza.id)" class="btn btn-danger">Eliminar</button>
 
         </td>
         </tr>
