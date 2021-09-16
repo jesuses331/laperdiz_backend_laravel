@@ -2900,7 +2900,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           console.log(error);
         });
       } else {
-        axios.post('/mascota/imagenes', formData, config).then(function (response) {
+        axios.post('/mascota/imagenes/', formData, config).then(function (response) {
           self.$refs.files.value = '';
           self.images = [];
           console.log('Si se guardo');
