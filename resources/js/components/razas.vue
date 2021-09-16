@@ -86,6 +86,7 @@
         
         <td>
             <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar</button>
+            <p>{{raza}}</p>
         </td>
         <td>
             <button @click="eliminar(raza.id)" class="btn btn-danger">Eliminar</button>
@@ -143,7 +144,7 @@ export default {
        async guardar(){
             if (this.modificar){
                 const res = await axios.put('razas/' + this.id, this.raza)
-
+                
                 
             }else{
                
