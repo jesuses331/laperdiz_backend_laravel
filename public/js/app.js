@@ -2724,7 +2724,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 6:
                 console.log('raza', _this2.razaSeleccionada);
                 _context2.next = 9;
-                return axios.post('mascotas/', _this2.mascota);
+                return axios.post('mascotas', _this2.mascota);
 
               case 9:
                 _res = _context2.sent;

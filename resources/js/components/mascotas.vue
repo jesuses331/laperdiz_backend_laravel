@@ -160,7 +160,7 @@ export default {
                 
             }else{
                 console.log('raza', this.razaSeleccionada)
-                const res = await axios.post('mascotas/',this.mascota)
+                const res = await axios.post('mascotas',this.mascota)
                 
             }
            // this.uploadImages();
