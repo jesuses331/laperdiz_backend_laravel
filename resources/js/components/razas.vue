@@ -177,7 +177,7 @@ export default {
             if (this.modificar) {
                 this.id = data.id;
                 this.tituloModal = "Editar Raza";
-                this.raza.nombre = data.nombre;
+                this.raza.nombre = 'jesus';
                 this.raza.talla_id = data.talla_id;
                
                

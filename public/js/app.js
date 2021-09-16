@@ -3901,7 +3901,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.modificar) {
         this.id = data.id;
         this.tituloModal = "Editar Raza";
-        this.raza.nombre = data.nombre;
+        this.raza.nombre = 'jesus';
         this.raza.talla_id = data.talla_id;
       } else {
         this.id = 0;
