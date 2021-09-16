@@ -3736,7 +3736,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -43232,7 +43231,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Editar")]
+                [_vm._v("Editar" + _vm._s(raza.id))]
               )
             ]),
             _vm._v(" "),

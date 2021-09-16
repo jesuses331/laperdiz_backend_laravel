@@ -75,7 +75,6 @@
         <tr>
         <th scope="col">id</th>
         <th scope="col">Nombre</th>
-        
         <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
     </thead>
@@ -85,7 +84,7 @@
         <td>{{ raza.nombre }}</td>
         
         <td>
-            <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar</button>
+            <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar{{raza.id}}</button>
             
         </td>
         <td>
