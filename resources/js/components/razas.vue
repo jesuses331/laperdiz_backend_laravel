@@ -86,7 +86,7 @@
         
         <td>
             <button  @click="modificar=true; abrirModal(raza)" class="btn btn-warning">Editar</button>
-            <p>{{raza}}</p>
+            
         </td>
         <td>
             <button @click="eliminar(raza.id)" class="btn btn-danger">Eliminar</button>
@@ -178,6 +178,7 @@ export default {
                 this.id = data.id;
                 this.tituloModal = "Editar Raza";
                 this.raza.nombre = data.nombre;
+                this.raza.talla_id = data.talla_id;
                
                
                 
@@ -185,6 +186,7 @@ export default {
                 this.id = 0;
                 this.tituloModal = 'Registrar Razas';
                 this.raza.nombre = '';
+                this.raza.talla_id = null;
                 
             }
             

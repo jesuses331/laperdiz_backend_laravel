@@ -3902,10 +3902,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.id = data.id;
         this.tituloModal = "Editar Raza";
         this.raza.nombre = data.nombre;
+        this.raza.talla_id = data.talla_id;
       } else {
         this.id = 0;
         this.tituloModal = 'Registrar Razas';
         this.raza.nombre = '';
+        this.raza.talla_id = null;
       }
     },
     cerrarModal: function cerrarModal() {
@@ -43231,9 +43233,7 @@ var render = function() {
                   }
                 },
                 [_vm._v("Editar")]
-              ),
-              _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(raza))])
+              )
             ]),
             _vm._v(" "),
             _c("td", [
