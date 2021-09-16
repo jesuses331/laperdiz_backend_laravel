@@ -2914,7 +2914,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.modificar) {
         this.id = data.id;
-        this.id_image = data.id_image;
         this.tituloModal = "Editar Mascota";
         this.mascota.nombre = data.nombre;
         this.mascota.detalle = data.detalle;
