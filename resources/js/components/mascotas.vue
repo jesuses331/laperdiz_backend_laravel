@@ -79,9 +79,9 @@
             <th scope="row">{{ mas.id }}</th>
                 <td>{{ mas.nombre }}</td>
                 <td>{{ mas.detalle }}</td>
-                <td v-for="picture,index in pictures" :key="index">
+               <!-- <td v-for="picture,index in pictures" :key="index">
                     <img v-for="(img, index) in picture.images" :key="index" :src="img" alt="" width="10px" height="10px">
-                </td>
+                </td>-->
                 <td>
                     <button  @click="modificar=true; abrirModal(mas);" class="btn btn-warning">Editar</button>
                 </td>

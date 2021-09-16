@@ -42286,68 +42286,44 @@ var render = function() {
       _c(
         "tbody",
         _vm._l(_vm.mascotas, function(mas) {
-          return _c(
-            "tr",
-            { key: mas.id },
-            [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(mas.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(mas.nombre))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(mas.detalle))]),
-              _vm._v(" "),
-              _vm._l(_vm.pictures, function(picture, index) {
-                return _c(
-                  "td",
-                  { key: index },
-                  _vm._l(picture.images, function(img, index) {
-                    return _c("img", {
-                      key: index,
-                      attrs: {
-                        src: img,
-                        alt: "",
-                        width: "10px",
-                        height: "10px"
-                      }
-                    })
-                  }),
-                  0
-                )
-              }),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-warning",
-                    on: {
-                      click: function($event) {
-                        _vm.modificar = true
-                        _vm.abrirModal(mas)
-                      }
+          return _c("tr", { key: mas.id }, [
+            _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(mas.id))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(mas.nombre))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(mas.detalle))]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-warning",
+                  on: {
+                    click: function($event) {
+                      _vm.modificar = true
+                      _vm.abrirModal(mas)
                     }
-                  },
-                  [_vm._v("Editar")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger",
-                    on: {
-                      click: function($event) {
-                        return _vm.eliminar(mas.id)
-                      }
+                  }
+                },
+                [_vm._v("Editar")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  on: {
+                    click: function($event) {
+                      return _vm.eliminar(mas.id)
                     }
-                  },
-                  [_vm._v("Eliminar")]
-                )
-              ])
-            ],
-            2
-          )
+                  }
+                },
+                [_vm._v("Eliminar")]
+              )
+            ])
+          ])
         }),
         0
       )
