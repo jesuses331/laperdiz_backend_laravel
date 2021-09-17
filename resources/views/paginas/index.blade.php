@@ -34,7 +34,7 @@
 							data-easing="easeOutBack"
 						>	
 							<p><span>Patitas Bolivianas!</span> La grandeza de una nación y su progreso moral<br /> puede ser juzgado por la forma en que sus<br />animales son tratados (Mahatma Gandhi) .</p>
-							<a href="about.html" class="">More About Us</a>
+							
 						</div>  
 					</li> 
 
@@ -49,7 +49,7 @@
 							data-easing="easeOutBack"
 						>	
 							<p><span>Ellos tambien son VIDA!</span> Salva una vida <br /> abre tu corazon y tu vida <br />para un VERDADERO AMIGO.</p>
-							<a href="dogs.html" class="">Gallery</a>
+							
 						</div>                                    
 					</li> 
 				</ul>
