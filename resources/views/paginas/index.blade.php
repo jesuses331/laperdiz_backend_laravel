@@ -112,7 +112,7 @@
 												@php
 													$url = json_decode($img->url)
 												@endphp
-												<img src="{{ secure_asset($url[0]) }}" alt="//"/>
+												<img src="{{ asset($url[0]) }}" alt="//"/>
 											@endforeach
                                             	<span class="name">{{ $mascota->nombre }}</span>
                                         </a>
