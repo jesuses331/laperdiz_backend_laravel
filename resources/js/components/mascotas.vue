@@ -171,7 +171,6 @@ export default {
            const res = await axios.delete('/mascotas/'+id);
             this.listar();
         },
-
         /*********RAZAS***/
         async listarTallas(){
            const res = await axios.get('tallas');
@@ -181,10 +180,10 @@ export default {
            const res = await axios.get('razas');
             this.razas=res.data;
         },
-        async listarImagenes(){
+       /*  async listarImagenes(){
            const res = await axios.get('/imagenes');
             this.images=res.data;
-        },
+        },*/
         /*********ETAPAS***/
         async listarEtapas(){
            const res = await axios.get('etapas');

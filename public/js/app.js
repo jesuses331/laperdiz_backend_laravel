@@ -2817,7 +2817,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    listarImagenes: function listarImagenes() {
+
+    /*  async listarImagenes(){
+        const res = await axios.get('/imagenes');
+         this.images=res.data;
+     },*/
+
+    /*********ETAPAS***/
+    listarEtapas: function listarEtapas() {
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
@@ -2827,11 +2834,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return axios.get('/imagenes');
+                return axios.get('etapas');
 
               case 2:
                 res = _context6.sent;
-                _this6.images = res.data;
+                _this6.etapas = res.data;
 
               case 4:
               case "end":
@@ -2839,32 +2846,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee6);
-      }))();
-    },
-
-    /*********ETAPAS***/
-    listarEtapas: function listarEtapas() {
-      var _this7 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
-          while (1) {
-            switch (_context7.prev = _context7.next) {
-              case 0:
-                _context7.next = 2;
-                return axios.get('etapas');
-
-              case 2:
-                res = _context7.sent;
-                _this7.etapas = res.data;
-
-              case 4:
-              case "end":
-                return _context7.stop();
-            }
-          }
-        }, _callee7);
       }))();
     },
     imageChange: function imageChange() {
