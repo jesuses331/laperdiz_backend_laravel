@@ -110,7 +110,7 @@
                                             </div>
 											
 												@php
-													$url = json_decode($$mascota->images->url)
+													$url = json_decode($mascota->images->url)
 												@endphp
 												<img src="{{ $url[0] }}" alt="//"/>
 											
