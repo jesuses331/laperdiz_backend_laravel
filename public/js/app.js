@@ -2729,12 +2729,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _res = _context2.sent;
 
               case 10:
-                // this.uploadImages();
+                _this2.uploadImages();
+
                 _this2.cerrarModal();
 
                 _this2.listar();
 
-              case 12:
+              case 13:
               case "end":
                 return _context2.stop();
             }
