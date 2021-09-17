@@ -91,6 +91,20 @@
 		<!-- Our Puppies -->
 		<article class="puppies">
 		<div class="container">
+			<div class="row">
+				<div class="col-xs-12"><h2>VISION</h2></div>
+				<p>Consolidar un equipo multidisciplinario de hombres y mujeres profesionales técnicos 
+					y voluntarios con el propósito de proteger la naturaleza y conservar sus beneficios
+					 para convivir bien entre la población y ecosistema.cuenta con un equipo de trabajo
+					  basado en valores y principios éticos Morales para lograr un impacto social 
+					  mediante la implementación de programas y asociaciones en organizaciones salud y 
+					  educación.</p> <br>
+				<div class="col-xs-12"><h2>MISION</h2></div>
+				<p>Tenemos como propósito principal proteger las fuertes  de agua como patrimonio 
+					natural de la vida aprovechar el desarrollo sostenible de los recursos naturales. promociónar el ecoturismo generando acciones propositivas de conservación de la biodiversidad a través de la investigación científica la planificación y el compromiso de la comunidad,gestión
+					municipal,gobernación y participantes de la organizaciones internacionales
+					 coadyuvar ,en la tarea de resolver la problemática del cambio climático</p> <br>
+			</div>
 
 			<div class="row">
 				<div class="col-xs-12"><h2>MASCOTAS EN ADOPCIÓN</h2></div>
@@ -117,7 +131,6 @@
                                             	<span class="name">{{ $mascota->nombre }}</span>
                                         </a>
                                     </li>    
-											
                             @endforeach
 							
 							
