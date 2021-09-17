@@ -108,12 +108,12 @@
                                                 <span class="wks">9 Wks F</span>
                                                 <span class="txt">Maltese</span>
                                             </div>
-											@foreach ($mascota->images as $img)
+											
 												@php
-													$url = json_decode($img->url)
+													$url = json_decode($$mascota->images->url)
 												@endphp
 												<img src="{{ $url[0] }}" alt="//"/>
-											@endforeach
+											
                                             	<span class="name">{{ $mascota->nombre }}</span>
                                         </a>
                                     </li>    
