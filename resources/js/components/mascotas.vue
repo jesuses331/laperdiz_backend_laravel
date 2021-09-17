@@ -69,7 +69,6 @@
         <th scope="col">id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Detalle</th>
-        <th scope="col">Imagen</th>
         <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
     </thead>
@@ -247,7 +246,6 @@ export default {
             this.modal = 1;
             if (this.modificar) {
                 this.id = data.id;
-               
                 this.tituloModal = "Editar Mascota";
                 this.mascota.nombre = data.nombre;
                 this.mascota.detalle = data.detalle;
