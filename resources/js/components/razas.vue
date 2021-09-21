@@ -21,6 +21,7 @@
                     <div>
                         <label for="nombre">Nombre</label>
                         <input v-model="raza.nombre" id="nombre" placeholder="Nombre" type="text" class="form-control" >
+                        <span class="text-danger" v-if="errores.nombre">{{errores.nombre[0]}}</span>
                     </div>
                     <div >
                        <label for="tallas">Talla</label>
@@ -28,6 +29,7 @@
                             <option value="null">Seleccione una talla</option>
                            <option v-for="talla in tallas" :key="talla.id" v-bind:value="talla.id">{{talla.nombre}}</option>
                         </select>
+                         <span class="text-danger" v-if="errores.talla_id">{{errores.talla_id[0]}}</span>
                     </div>
                    <!-- <div>
                         <label for="files">fotos</label>
@@ -120,6 +122,9 @@ export default {
                 nombre:'',
                 talla_id:null
             },
+            errores:{
+
+            },
             denunciaSeleccionada:null,
             modificar:true,
             modal:0,
@@ -141,18 +146,24 @@ export default {
             this.tallas=res.data;
         },
        async guardar(){
-            if (this.modificar){
-                const res = await axios.put('razas/' + this.id, this.raza)
-                
-                
-            }else{
+            try {
+                if (this.modificar){
+                    const res = await axios.put('razas/' + this.id, this.raza)
+                }else{
+                    const res = await axios.post('razas',this.raza)          
+                }
+                // this.uploadImages();
+                this.cerrarModal();
+                 this.listar();
                
-                const res = await axios.post('razas',this.raza)
-                            
-            }
-           // this.uploadImages();
-            this.cerrarModal();
-            this.listar();
+           } catch (error) {
+               if (error.response.data){
+                   this.errores =error.response.data.errors;
+               }
+               console.log(error.response.data);
+           }
+
+           
             
         },
         async eliminar (id){
@@ -193,6 +204,7 @@ export default {
         },
         cerrarModal(){
             this.modal = 0;
+            this.errores={};
         },
         imageChange(){
             for (let i = 0; i < this.$refs.files.files.length; i++) {
@@ -245,8 +257,9 @@ export default {
         },
     },
     created(){
-       this.listar();
+        this.listar();
         this.listarTallas();
+        
        
        
     }

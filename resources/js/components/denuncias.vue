@@ -21,15 +21,18 @@
                     <div>
                         <label for="titulo">Titulo</label>
                         <input v-model="denuncia.titulo" id="titulo" placeholder="Titulo" type="text" class="form-control" >
+                         <span class="text-danger" v-if="errores.titulo">{{errores.titulo[0]}}</span>
                     </div>
                     <div>
                         <label for="descripcion">Descripcion</label>
                         <textarea v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"></textarea>
+                         <span class="text-danger" v-if="errores.descripcion">{{errores.descripcion[0]}}</span>
                     </div>
                     <div>
                         <label for="ciudad">Ciudad</label>
                         <input v-model="denuncia.ciudad" id="ciudad" placeholder="ciudad" type="text" class="form-control" >
-                    </div>
+                        <span class="text-danger" v-if="errores.ciudad">{{errores.ciudad[0]}}</span>
+                    </div> <br>
                     <div>
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
@@ -122,6 +125,7 @@ export default {
                 
 
             },
+            errores:{},
             denunciaSeleccionada:null,
             modificar:true,
             modal:0,
@@ -139,18 +143,28 @@ export default {
             this.denuncias=res.data;
         },
        async guardar(){
-            if (this.modificar){
+
+           try {
+               if (this.modificar){
                 const res = await axios.put('/denuncias/' + this.id, this.denuncia)
 
                 
-            }else{
+                 }else{
                
-                const res = await axios.post('denuncias',this.denuncia)
+                    const res = await axios.post('denuncias',this.denuncia)
                             
-            }
-            this.uploadImages();
-            this.cerrarModal();
-            this.listar();
+                }
+                this.uploadImages();
+                this.cerrarModal();
+                this.listar();
+                
+           } catch (error) {
+                if (error.response.data){
+                   this.errores = error.response.data.errors;
+               }
+               console.log(error.response.data);
+           }
+            
             
         },
         async eliminar (id){
@@ -189,6 +203,7 @@ export default {
         },
         cerrarModal(){
             this.modal = 0;
+            this.errores = {};
         },
         imageChange(){
             for (let i = 0; i < this.$refs.files.files.length; i++) {

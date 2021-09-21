@@ -7,6 +7,8 @@ use App\Models\Mascota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use App\Http\Requests\ImageRequest;
+
 class ImageController extends Controller
 {
     /**
@@ -101,7 +103,7 @@ class ImageController extends Controller
          $thumbnail = '/uploads/thumbnail/'.$name;
          Storage::delete([$file, $thumbnail]); // delete from folder $image->delete(); // delete from table return redirect()->back(); 
     }
-    public function storeImage(Request $request)
+    public function storeImage(ImageRequest $request)
     {
         $ultimo_id = Image::latest('id')->first()->id;
         $mascota = Mascota::find($ultimo_id);

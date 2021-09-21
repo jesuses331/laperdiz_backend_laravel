@@ -7,6 +7,8 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Requests\DenunciaRequest;
+
 class DenunciaController extends Controller
 {
     /**
@@ -35,7 +37,7 @@ class DenunciaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DenunciaRequest $request)
     {
         $denuncia = new Denuncia();
         $denuncia->create($request->all());
@@ -70,7 +72,7 @@ class DenunciaController extends Controller
      * @param  \App\Models\Denuncia  $denuncia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DenunciaRequest $request, $id)
     {
         $denuncia = Denuncia::find($id);
         $denuncia->update($request->all());

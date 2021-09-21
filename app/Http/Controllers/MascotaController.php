@@ -7,6 +7,8 @@ use App\Models\Mascota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Requests\MascotaRequest;
+
 class MascotaController extends Controller
 {
     /**
@@ -35,7 +37,7 @@ class MascotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MascotaRequest $request)
     {
         $mascota = new Mascota();
          $mascota->create($request->all());
@@ -74,7 +76,7 @@ class MascotaController extends Controller
      * @param  \App\Models\Mascota  $mascota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MascotaRequest $request, $id)
     {   
         $mascota = Mascota::find($id);
         $mascota->update($request->all());

@@ -26,11 +26,11 @@
                         <label for="titulo">Titulo</label>
                         <input v-model="noticia.titulo" id="titulo" placeholder="Titulo " type="text" class="form-control" >
                     </div>
-                    
                     <div>
                         <label for="descripcion">Descripcion</label>
                         <input v-model="noticia.descripcion" id="descripcion" placeholder="Detalle de la notiica" type="text" class="form-control" >
                     </div>
+                    <br> 
                    <!-- <div>
                         <label for="razas">Raza</label>
                         <select v-model="mascota.raza_id"  id="razas" class="form-control">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Raza;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\RazaRequest;
+
 class RazaController extends Controller
 {
     /**
@@ -33,8 +35,9 @@ class RazaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RazaRequest $request)
     {
+        
         $raza = new Raza();
         $raza->create($request->all());
        
@@ -69,7 +72,7 @@ class RazaController extends Controller
      * @param  \App\Models\Raza  $raza
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Raza $raza)
+    public function update(RazaRequest $request, Raza $raza)
     {
         $raza->update($request->all());
     }

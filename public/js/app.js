@@ -2308,6 +2308,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2324,6 +2327,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         descripcion: '',
         ciudad: ''
       },
+      errores: {},
       denunciaSeleccionada: null,
       modificar: true,
       modal: 0,
@@ -2366,39 +2370,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.prev = 0;
+
                 if (!_this2.modificar) {
-                  _context2.next = 6;
+                  _context2.next = 7;
                   break;
                 }
 
-                _context2.next = 3;
+                _context2.next = 4;
                 return axios.put('/denuncias/' + _this2.id, _this2.denuncia);
 
-              case 3:
+              case 4:
                 res = _context2.sent;
-                _context2.next = 9;
+                _context2.next = 10;
                 break;
 
-              case 6:
-                _context2.next = 8;
+              case 7:
+                _context2.next = 9;
                 return axios.post('denuncias', _this2.denuncia);
 
-              case 8:
+              case 9:
                 _res = _context2.sent;
 
-              case 9:
+              case 10:
                 _this2.uploadImages();
 
                 _this2.cerrarModal();
 
                 _this2.listar();
 
-              case 12:
+                _context2.next = 19;
+                break;
+
+              case 15:
+                _context2.prev = 15;
+                _context2.t0 = _context2["catch"](0);
+
+                if (_context2.t0.response.data) {
+                  _this2.errores = _context2.t0.response.data.errors;
+                }
+
+                console.log(_context2.t0.response.data);
+
+              case 19:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 15]]);
       }))();
     },
     eliminar: function eliminar(id) {
@@ -2458,6 +2477,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
+      this.errores = {};
     },
     imageChange: function imageChange() {
       for (var i = 0; i < this.$refs.files.files.length; i++) {
@@ -2626,6 +2646,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2664,6 +2688,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         raza_id: null,
         etapa_id: null
       },
+      errores: {},
       modificar: true,
       modal: 0,
       tituloModal: '',
@@ -2707,40 +2732,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.prev = 0;
+
                 if (!_this2.modificar) {
-                  _context2.next = 6;
+                  _context2.next = 7;
                   break;
                 }
 
-                _context2.next = 3;
+                _context2.next = 4;
                 return axios.put('/mascotas/' + _this2.id, _this2.mascota);
 
-              case 3:
+              case 4:
                 res = _context2.sent;
-                _context2.next = 10;
+                _context2.next = 11;
                 break;
 
-              case 6:
+              case 7:
                 console.log('raza', _this2.razaSeleccionada);
-                _context2.next = 9;
+                _context2.next = 10;
                 return axios.post('mascotas', _this2.mascota);
 
-              case 9:
+              case 10:
                 _res = _context2.sent;
 
-              case 10:
+              case 11:
                 _this2.uploadImages();
 
                 _this2.cerrarModal();
 
                 _this2.listar();
 
-              case 13:
+                _context2.next = 20;
+                break;
+
+              case 16:
+                _context2.prev = 16;
+                _context2.t0 = _context2["catch"](0);
+
+                if (_context2.t0.response.data) {
+                  _this2.errores = _context2.t0.response.data.errors;
+                }
+
+                console.log(_context2.t0.response.data);
+
+              case 20:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 16]]);
       }))();
     },
     eliminar: function eliminar(id) {
@@ -2870,23 +2910,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       };
 
-      if (this.modificar) {
-        formData.append('_method', 'PATCH');
-        axios.post('mascotas/' + this.id, formData, config).then(function (response) {
-          self.$refs.files.value = '';
-          self.images = [];
-          console.log('Si se modifico');
-        })["catch"](function (error) {
-          console.log(error);
-        });
-      } else {
-        axios.post('/mascota/imagenes', formData, config).then(function (response) {
-          self.$refs.files.value = '';
-          self.images = [];
-          console.log('Si se guardo');
-        })["catch"](function (error) {
-          console.log(error);
-        });
+      try {
+        if (this.modificar) {
+          formData.append('_method', 'PATCH');
+          axios.post('mascotas/' + this.id, formData, config).then(function (response) {
+            self.$refs.files.value = '';
+            self.images = [];
+            console.log('Si se modifico');
+          })["catch"](function (error) {
+            console.log(error);
+          });
+        } else {
+          axios.post('/mascota/imagenes', formData, config).then(function (response) {
+            self.$refs.files.value = '';
+            self.images = [];
+          });
+        }
+      } catch (error) {
+        if (error.response.data) {
+          this.errores = error.response.data.errors;
+        }
+
+        console.log(error.response.data);
       }
     },
     abrirModal: function abrirModal() {
@@ -2911,6 +2956,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
+      this.errores = {};
     }
   },
   created: function created() {
@@ -3715,6 +3761,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3735,6 +3783,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         nombre: '',
         talla_id: null
       },
+      errores: {},
       denunciaSeleccionada: null,
       modificar: true,
       modal: 0,
@@ -3801,38 +3850,53 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
+                _context3.prev = 0;
+
                 if (!_this3.modificar) {
-                  _context3.next = 6;
+                  _context3.next = 7;
                   break;
                 }
 
-                _context3.next = 3;
+                _context3.next = 4;
                 return axios.put('razas/' + _this3.id, _this3.raza);
 
-              case 3:
+              case 4:
                 res = _context3.sent;
-                _context3.next = 9;
+                _context3.next = 10;
                 break;
 
-              case 6:
-                _context3.next = 8;
+              case 7:
+                _context3.next = 9;
                 return axios.post('razas', _this3.raza);
 
-              case 8:
+              case 9:
                 _res = _context3.sent;
 
-              case 9:
+              case 10:
                 // this.uploadImages();
                 _this3.cerrarModal();
 
                 _this3.listar();
 
-              case 11:
+                _context3.next = 18;
+                break;
+
+              case 14:
+                _context3.prev = 14;
+                _context3.t0 = _context3["catch"](0);
+
+                if (_context3.t0.response.data) {
+                  _this3.errores = _context3.t0.response.data.errors;
+                }
+
+                console.log(_context3.t0.response.data);
+
+              case 18:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, null, [[0, 14]]);
       }))();
     },
     eliminar: function eliminar(id) {
@@ -3890,6 +3954,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
+      this.errores = {};
     },
     imageChange: function imageChange() {
       for (var i = 0; i < this.$refs.files.files.length; i++) {
@@ -41773,7 +41838,13 @@ var render = function() {
                     _vm.$set(_vm.denuncia, "titulo", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.titulo
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.titulo[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", [
@@ -41806,7 +41877,13 @@ var render = function() {
                     _vm.$set(_vm.denuncia, "descripcion", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.descripcion
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.descripcion[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", [
@@ -41832,8 +41909,16 @@ var render = function() {
                     _vm.$set(_vm.denuncia, "ciudad", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.ciudad
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.ciudad[0]))
+                  ])
+                : _vm._e()
             ]),
+            _vm._v(" "),
+            _c("br"),
             _vm._v(" "),
             _c("div", [
               _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
@@ -42065,7 +42150,13 @@ var render = function() {
                     _vm.$set(_vm.mascota, "nombre", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.nombre
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.nombre[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-6" }, [
@@ -42118,7 +42209,13 @@ var render = function() {
                   })
                 ],
                 2
-              )
+              ),
+              _vm._v(" "),
+              _vm.errores.raza_id
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.raza_id[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-6" }, [
@@ -42173,7 +42270,11 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(_vm.mascota.etapa_id))])
+              _vm.errores.etapa_id
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.etapa_id[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-12" }, [
@@ -42204,7 +42305,13 @@ var render = function() {
                     _vm.$set(_vm.mascota, "detalle", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.detalle
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.detalle[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "py-3 m-3" }, [
@@ -42220,7 +42327,13 @@ var render = function() {
                   multiple: ""
                 },
                 on: { change: _vm.imageChange }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.imagen
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.imagen[0]))
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
@@ -42480,6 +42593,8 @@ var render = function() {
                 }
               })
             ]),
+            _vm._v(" "),
+            _c("br"),
             _vm._v(" "),
             _c("div", [
               _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
@@ -43060,7 +43175,13 @@ var render = function() {
                     _vm.$set(_vm.raza, "nombre", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errores.nombre
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.nombre[0]))
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", [
@@ -43113,7 +43234,13 @@ var render = function() {
                   })
                 ],
                 2
-              )
+              ),
+              _vm._v(" "),
+              _vm.errores.talla_id
+                ? _c("span", { staticClass: "text-danger" }, [
+                    _vm._v(_vm._s(_vm.errores.talla_id[0]))
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),

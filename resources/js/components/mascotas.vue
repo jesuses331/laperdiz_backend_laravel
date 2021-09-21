@@ -21,6 +21,7 @@
                     <div class="col-6">
                         <label for="nombre">Nombre</label>
                         <input v-model="mascota.nombre" id="nombre" placeholder="Nombre de la mascota" type="text" class="form-control" >
+                        <span class="text-danger" v-if="errores.nombre">{{errores.nombre[0]}}</span>
                     </div>
                    
                     <div class="col-6">
@@ -29,6 +30,7 @@
                             <option value="null">Seleccione una raza</option>
                            <option v-for="raz in razas" :key="raz.id" v-bind:value="raz.id">{{raz.nombre}}</option>
                         </select>
+                         <span class="text-danger" v-if="errores.raza_id">{{errores.raza_id[0]}}</span>
                     </div>
                     <div class="col-6">
 
@@ -37,16 +39,18 @@
                             <option value="null">Seleccione una etapa</option>
                            <option v-for="etapa in etapas" :key="etapa.id" v-bind:value="etapa.id">{{etapa.nombre}}</option>
                         </select>
-                        <p>{{mascota.etapa_id}}</p>
+                         <span class="text-danger" v-if="errores.etapa_id">{{errores.etapa_id[0]}}</span>
                         
                     </div>
                     <div class="col-12">
                         <label for="detalle">Detalle</label>
                          <textarea v-model="mascota.detalle" id="descripcion" placeholder="Detalles" type="textarea" class="form-control" rows="5"></textarea>
+                         <span class="text-danger" v-if="errores.detalle">{{errores.detalle[0]}}</span>
                     </div>
                     <div class="py-3 m-3">
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
+                         <span class="text-danger" v-if="errores.imagen">{{errores.imagen[0]}}</span>
                     </div>
                    <!-- <div class="m-auto">
                         <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
@@ -136,6 +140,7 @@ export default {
                 etapa_id:null,
 
             },
+            errores:{},
             modificar:true,
             modal:0,
             tituloModal:'',
@@ -153,19 +158,23 @@ export default {
             
         },
         async guardar(){
-            if (this.modificar){
+            try {
+                if (this.modificar){
                 const res = await axios.put('/mascotas/' + this.id, this.mascota)
-                
-                
-            }else{
+                }else{
                 console.log('raza', this.razaSeleccionada)
                 const res = await axios.post('mascotas',this.mascota)
+                }
+                this.uploadImages();
+                this.cerrarModal();
+                this.listar();
                 
-            }
-            this.uploadImages();
-            this.cerrarModal();
-            this.listar();
-            
+            } catch (error) {
+               if (error.response.data){
+                   this.errores =error.response.data.errors;
+               }
+               console.log(error.response.data);
+            }   
         },
         async eliminar (id){
            const res = await axios.delete('/mascotas/'+id);
@@ -212,31 +221,31 @@ export default {
                 headers: { "Content-Type" : "multipart/form-data"}
             }
             
-           
-            if(this.modificar){
-                formData.append('_method','PATCH');
-                axios.post('mascotas/' + this.id,formData,config) 
-                .then(response =>{
-                self.$refs.files.value = '';
-                self.images = [];
-                console.log('Si se modifico');
-                })
-                .catch(error =>{
-                    console.log(error);
-                })
-            }else{
-            axios.post('/mascota/imagenes',formData,config)
-            .then(response =>{
-             self.$refs.files.value = '';
-            self.images = [];
-                    
-            console.log('Si se guardo');
-                })
-                .catch(error =>{
-                    console.log(error);
-                })
-            }
-            
+           try {
+               if(this.modificar){
+                    formData.append('_method','PATCH');
+                    axios.post('mascotas/' + this.id,formData,config) 
+                    .then(response =>{
+                    self.$refs.files.value = '';
+                    self.images = [];
+                    console.log('Si se modifico');
+                    })
+                    .catch(error =>{
+                        console.log(error);
+                    })
+                 }else{
+                    axios.post('/mascota/imagenes',formData,config)
+                    .then(response =>{
+                    self.$refs.files.value = '';
+                    self.images = [];
+                    });
+                }
+           } catch (error) {
+               if (error.response.data){
+                   this.errores = error.response.data.errors;
+               }
+               console.log(error.response.data);
+           }
             
         },
         
@@ -266,6 +275,7 @@ export default {
         },
         cerrarModal(){
             this.modal = 0;
+            this.errores = {};
         },
     },
     created(){

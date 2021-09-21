@@ -196,6 +196,7 @@
                         $bool =true;
                     @endphp
                     @foreach ($denuncias as $denuncia)
+						@foreach ($denuncia->images as $img)
                         @if ($bool)
                             <div class="row service first">
                                 <div class="col-md-7">
@@ -203,7 +204,7 @@
                                     <p>{{ $denuncia->descripcion }}</p>
                                 </div>
                                 <div class="col-md-5">
-                                    <img src="img/services/services01.jpg" alt="Our Services">
+                                    <img src="{{ asset($url[0]) }}" alt="Our Services">
                                 </div>
                             </div>
                             @php
@@ -214,7 +215,7 @@
                                 <div class="col-md-12">
                                     
                                 </div>
-                                <div class="col-md-5"><img src="img/services/services02.jpg" alt="Our Services"></div>
+                                <div class="col-md-5"><img src="{{ asset($url[0]) }}" alt="Our Services"></div>
                                 <div class="col-md-7">
                                     <h2>{{ $denuncia->titulo }}</h2>
                                     <p>{{ $denuncia->descripcion }}</p>
@@ -224,7 +225,7 @@
                                 $bool=true;
                             @endphp
                         @endif
-                        
+                        @endforeach
                     @endforeach
                 @endsection
 				
