@@ -2311,6 +2311,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2323,7 +2338,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       id: 0,
       denuncia: {
         titulo: '',
-        fecha: '1992-03-07',
+        fecha: '',
         descripcion: '',
         ciudad: ''
       },
@@ -2464,7 +2479,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (this.modificar) {
         this.id = data.id;
         this.tituloModal = "Editar Denuncia";
-        this.denuncia.fecha = '1992-03-07';
+        this.denuncia.fecha = data.fecha;
         this.denuncia.titulo = data.titulo;
         this.denuncia.descripcion = data.descripcion;
         this.denuncia.ciudad = data.ciudad;
@@ -2473,6 +2488,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.tituloModal = 'Registrar Denuncia';
         this.denuncia.titulo = '';
         this.denuncia.descripcion = '';
+        this.denuncia.ciudad = '';
+        this.denuncia.fecha = '';
       }
     },
     cerrarModal: function cerrarModal() {
@@ -2546,6 +2563,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -4040,6 +4058,7 @@ Vue.component('padrinos', __webpack_require__(/*! ./components/padrinos.vue */ "
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+//CKEditor
 
 var app = new Vue({
   el: '#app'
@@ -41792,7 +41811,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("div", { staticClass: "modal", class: { mostrar: _vm.modal } }, [
-      _c("div", { staticClass: "modal-dialog" }, [
+      _c("div", { staticClass: "modal-dialog modal-dialog-scrollable" }, [
         _c("div", { staticClass: "modal-content" }, [
           _c("div", { staticClass: "modal-header" }, [
             _c("h4", { staticClass: "modal-title" }, [
@@ -41847,7 +41866,7 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", [
+            _c("div", { attrs: { id: "descripcion" } }, [
               _c("label", { attrs: { for: "descripcion" } }, [
                 _vm._v("Descripcion")
               ]),
@@ -41916,6 +41935,34 @@ var render = function() {
                     _vm._v(_vm._s(_vm.errores.ciudad[0]))
                   ])
                 : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", [
+              _c("label", { attrs: { for: "fecha" } }, [_vm._v("Fecha")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.denuncia.fecha,
+                    expression: "denuncia.fecha"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "fecha", placeholder: "fecha", type: "date" },
+                domProps: { value: _vm.denuncia.fecha },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.denuncia, "fecha", $event.target.value)
+                  }
+                }
+              })
             ]),
             _vm._v(" "),
             _c("br"),
@@ -41996,6 +42043,8 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(den.ciudad))]),
             _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(den.fecha))]),
+            _vm._v(" "),
             _c("td", [
               _c(
                 "button",
@@ -42047,6 +42096,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Descripcion")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Ciudad")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha")]),
         _vm._v(" "),
         _c(
           "th",
@@ -42277,42 +42328,58 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c("label", { attrs: { for: "detalle" } }, [_vm._v("Detalle")]),
-              _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.mascota.detalle,
-                    expression: "mascota.detalle"
+            _c(
+              "div",
+              { staticClass: "col-12" },
+              [
+                _c("label", { attrs: { for: "detalle" } }, [_vm._v("Detalle")]),
+                _vm._v(" "),
+                _c("ckeditor", {
+                  attrs: { config: _vm.editorConfig },
+                  model: {
+                    value: _vm.editorData,
+                    callback: function($$v) {
+                      _vm.editorData = $$v
+                    },
+                    expression: "editorData"
                   }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  id: "descripcion",
-                  placeholder: "Detalles",
-                  type: "textarea",
-                  rows: "5"
-                },
-                domProps: { value: _vm.mascota.detalle },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                }),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.mascota.detalle,
+                      expression: "mascota.detalle"
                     }
-                    _vm.$set(_vm.mascota, "detalle", $event.target.value)
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "descripcion",
+                    placeholder: "Detalles",
+                    type: "textarea",
+                    rows: "5"
+                  },
+                  domProps: { value: _vm.mascota.detalle },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.mascota, "detalle", $event.target.value)
+                    }
                   }
-                }
-              }),
-              _vm._v(" "),
-              _vm.errores.detalle
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errores.detalle[0]))
-                  ])
-                : _vm._e()
-            ]),
+                }),
+                _vm._v(" "),
+                _vm.errores.detalle
+                  ? _c("span", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errores.detalle[0]))
+                    ])
+                  : _vm._e()
+              ],
+              1
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "py-3 m-3" }, [
               _c("label", { attrs: { for: "files" } }, [_vm._v("fotos")]),
@@ -42567,7 +42634,7 @@ var render = function() {
                 _vm._v("Descripcion")
               ]),
               _vm._v(" "),
-              _c("input", {
+              _c("textarea", {
                 directives: [
                   {
                     name: "model",
@@ -42579,8 +42646,9 @@ var render = function() {
                 staticClass: "form-control",
                 attrs: {
                   id: "descripcion",
-                  placeholder: "Detalle de la notiica",
-                  type: "text"
+                  placeholder: "descripcion",
+                  type: "textarea",
+                  rows: "10"
                 },
                 domProps: { value: _vm.noticia.descripcion },
                 on: {

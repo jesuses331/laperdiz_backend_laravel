@@ -17,20 +17,35 @@
                     </div>
                
 				
-                @foreach ($noticias as $noticia)
-				<div class="row coupon">
-					<div class="col-sm-4">
-						<img src="img/coupons/coupon02.jpg" alt="//">
-					</div>
-					<div class="col-sm-7">
-						<span class="expires">{{ $noticia->fecha }}</span>
-						<h3>{{ $noticia->titulo }}</h3>
-						<span class="free">{{ $noticia->ciudad }}</span>
-						<p>{{ $noticia->descripcion }}</p>
-						<a href="#" class="btn btn-default">Leer mas....</a>
-					</div>
-				</div>
-                @endforeach
+                
+				@foreach ($noticias as $noticia)
+								@foreach ($noticia->images as $img)
+								<div class="col-sm-6 col-md-4 card" >
+									
+									<div class="thumbnail">
+										
+										@php
+                                			$url = json_decode($img->url)
+                            			@endphp
+										<img src="{{ $url[0] }}" alt="..." >
+										<div class="caption">
+										
+											<p><span>Noticias</span></p>
+						
+											<h3>{{$noticia->titulo}}</h3>
+											<br>
+											<p>{{$noticia->descripcion}}</p>
+											<br>
+											
+											
+											
+										</div>
+										<span><i class="icon-calendar"><p>{{$noticia->created_at}}</p></span></i>	
+									</div>
+								</div>
+								@endforeach
+						@endforeach
+                
 				
 			</div>  
 		</article>

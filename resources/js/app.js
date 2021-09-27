@@ -32,6 +32,10 @@ Vue.component('padrinos', require('./components/padrinos.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+//CKEditor
+
+
 const app = new Vue({
     el: '#app',
 });
+

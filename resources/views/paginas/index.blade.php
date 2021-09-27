@@ -192,41 +192,35 @@
 					<div class="col-xs-12"><h2 class="header">Denuncias</h2></div>
 				</div>
                 @section('denuncias')
-                    @php
-                        $bool =true;
-                    @endphp
-                    @foreach ($denuncias as $denuncia)
-						@foreach ($denuncia->images as $img)
-                        @if ($bool)
-                            <div class="row service first">
-                                <div class="col-md-7">
-                                    <h2>{{ $denuncia->titulo }}</h2>
-                                    <p>{{ $denuncia->descripcion }}</p>
-                                </div>
-                                <div class="col-md-5">
-                                    <img src="{{ asset($url[0]) }}" alt="Our Services">
-                                </div>
-                            </div>
-                            @php
-                                $bool=false;
-                            @endphp
-                        @else
-                            <div class="row service">
-                                <div class="col-md-12">
-                                    
-                                </div>
-                                <div class="col-md-5"><img src="{{ asset($url[0]) }}" alt="Our Services"></div>
-                                <div class="col-md-7">
-                                    <h2>{{ $denuncia->titulo }}</h2>
-                                    <p>{{ $denuncia->descripcion }}</p>
-                                </div>
-                            </div>
-                            @php
-                                $bool=true;
-                            @endphp
-                        @endif
-                        @endforeach
-                    @endforeach
+				
+						<div class="row">
+							@foreach ($denuncias as $denuncia)
+								@foreach ($denuncia->images as $img)
+								<div class="col-sm-6 col-md-4 card " style="height: 300px">
+									<div class="thumbnail">
+										@php
+                                			$url = json_decode($img->url)
+                            			@endphp
+										<img src="{{ $url[0] }}" alt="..." >
+										<div class="caption">
+										
+											<p><span>Denuncias</span></p>
+						
+											<h3>{{$denuncia->titulo}}</h3>
+											<br>
+											<p>{{$denuncia->descripcion}}</p>
+											<br>
+											<span><i class="icon-calendar"><p>{{$denuncia->created_at}}</p></span></i>
+												
+											
+										</div>
+										
+									</div>
+								</div>
+								@endforeach
+						@endforeach
+						</div>
+						
                 @endsection
 				
 			</div>
@@ -266,40 +260,4 @@
 
 	</section>
 </div>
-@endsection
-@section('noticias')
-   @php
-    $bool = true;    
-   @endphp 
-    @foreach ($denuncias as $denuncia)
-
-        @if ($bool)
-            <div class="row service first">
-                <div class="col-md-7">
-                    <h2>{{ $denuncia->titulo }}</h2>
-                    <p> {{ $denuncia->descripcion }}</p>
-                </div>
-                <div class="col-md-5">
-                    <img src="img/services/services01.jpg" alt="Our Services">
-                </div>
-            </div>   
-            @php
-                $bool=false;
-            @endphp  
-         @else
-         <div class="row service">
-            <div class="col-md-5">
-                <img src="img/services/services02.jpg" alt="Our Services"></div>
-            <div class="col-md-7">
-                <h2>{{ $denuncia->titulo }}</h2>
-                <p>{{ $denuncia->descripcion }}</p>
-            </div>
-        </div>
-        @php
-        $bool=true;
-        @endphp  
-           
-        @endif
-        
-    @endforeach
 @endsection

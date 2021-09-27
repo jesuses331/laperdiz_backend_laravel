@@ -8,7 +8,7 @@
 
     <!-- Modal -->
     <div  class="modal" :class="{mostrar:modal}">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
 
         <!-- Modal content-->
             <div class="modal-content">
@@ -23,15 +23,21 @@
                         <input v-model="denuncia.titulo" id="titulo" placeholder="Titulo" type="text" class="form-control" >
                          <span class="text-danger" v-if="errores.titulo">{{errores.titulo[0]}}</span>
                     </div>
-                    <div>
+                    <div id ="descripcion">
                         <label for="descripcion">Descripcion</label>
-                        <textarea v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"></textarea>
+                        <textarea v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"  ></textarea>
+                        
                          <span class="text-danger" v-if="errores.descripcion">{{errores.descripcion[0]}}</span>
                     </div>
                     <div>
                         <label for="ciudad">Ciudad</label>
                         <input v-model="denuncia.ciudad" id="ciudad" placeholder="ciudad" type="text" class="form-control" >
                         <span class="text-danger" v-if="errores.ciudad">{{errores.ciudad[0]}}</span>
+                    </div> <br>
+                    <div>
+                        <label for="fecha">Fecha</label>
+                        <input v-model="denuncia.fecha" id="fecha" placeholder="fecha" type="date" class="form-control" >
+                        <!--<span class="text-danger" v-if="errores.fecha">{{errores.fecha[0]}}</span>-->
                     </div> <br>
                     <div>
                         <label for="files">fotos</label>
@@ -81,6 +87,7 @@
         <th scope="col">titulo</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Ciudad</th>
+        <th scope="col">Fecha</th>
         <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
     </thead>
@@ -90,6 +97,7 @@
         <td>{{ den.titulo }}</td>
         <td>{{ den.descripcion }}</td>
         <td>{{ den.ciudad }}</td>
+        <td>{{ den.fecha }}</td>
         <td>
             <button  @click="modificar=true; abrirModal(den)" class="btn btn-warning">Editar</button>
         </td>
@@ -105,7 +113,14 @@
 </div>
     
 </template>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+<script>
+		ClassicEditor
+        		.create( document.querySelector( '#descripcion' ) )
+        		.catch( error => {
+            console.error( error );
+        });
+		</script>
 <script>
 export default {
     data(){
@@ -119,7 +134,7 @@ export default {
             id:0,
             denuncia:{
                 titulo:'',
-                fecha:'1992-03-07',
+                fecha:'',
                 descripcion:'',
                 ciudad:'',
                 
@@ -188,7 +203,7 @@ export default {
             if (this.modificar) {
                 this.id = data.id;
                 this.tituloModal = "Editar Denuncia";
-                this.denuncia.fecha = '1992-03-07';
+                this.denuncia.fecha = data.fecha;
                 this.denuncia.titulo = data.titulo;
                 this.denuncia.descripcion = data.descripcion;
                 this.denuncia.ciudad = data.ciudad;
@@ -197,6 +212,8 @@ export default {
                 this.tituloModal = 'Registrar Denuncia';
                 this.denuncia.titulo ='' ;
                 this.denuncia.descripcion = '';
+                 this.denuncia.ciudad = '';
+                 this.denuncia.fecha = '';
             }
             
 

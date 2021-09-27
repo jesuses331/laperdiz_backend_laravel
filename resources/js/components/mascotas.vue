@@ -44,6 +44,7 @@
                     </div>
                     <div class="col-12">
                         <label for="detalle">Detalle</label>
+                         <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
                          <textarea v-model="mascota.detalle" id="descripcion" placeholder="Detalles" type="textarea" class="form-control" rows="5"></textarea>
                          <span class="text-danger" v-if="errores.detalle">{{errores.detalle[0]}}</span>
                     </div>
@@ -106,6 +107,7 @@
 export default {
     data(){
         return {
+            
             talla:{
                 id:'',
                 nombre:'',

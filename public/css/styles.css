@@ -1323,8 +1323,20 @@ aside .recent-news a:hover {
 /***********************************Impresiones**********************************/
 
 .card{
-   padding-top: 50px;
+   padding-top: 30px;
+   padding-left: 50px;
+   padding-right: 50px;
+   
   
+}
+.card .thumbnail{
+  
+  height: 700px;
+  width: 400px;
+}
+.card img{
+  height: 182px;
+  width: 400px;
 }
 .caption span{
   font-size: 14px;
@@ -1561,7 +1573,7 @@ aside .recent-news a:hover {
 
 /************************ Footer ************************/
 footer {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 footer .contact {
   min-height: 575px;

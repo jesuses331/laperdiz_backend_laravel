@@ -21,7 +21,8 @@
     <!--[if IE 7]>
     <link rel="stylesheet" href="css/fontello-ie7.css" ><![endif]-->
 
-	
+	<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
+
 
     <link rel="stylesheet" href="plugins/grid/css/component.css" />
 	
@@ -206,6 +207,17 @@
 		<script>Placeholder.init();</script>
 		<![endif]-->
 
+		
+		
+
+		<script>
+			 ClassicEditor
+        		.create( document.querySelector( '#descripcion' ) )
+        		.catch( error => {
+            console.error( error );
+        });
+		</script>
+
 		<!-- Slider Revolution -->
 		<script src="plugins/revolution/js/jquery.themepunch.plugins.min.js"></script>
 		<script src="plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
@@ -231,7 +243,7 @@
 		<!-- Custom -->
 		<script src="js/script.js"  ></script>
 
-		
+
 
 		
 

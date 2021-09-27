@@ -28,7 +28,7 @@
                     </div>
                     <div>
                         <label for="descripcion">Descripcion</label>
-                        <input v-model="noticia.descripcion" id="descripcion" placeholder="Detalle de la notiica" type="text" class="form-control" >
+                        <textarea v-model="noticia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"  ></textarea>
                     </div>
                     <br> 
                    <!-- <div>
@@ -124,9 +124,6 @@ export default {
             modal:0,
             tituloModal:'',
             noticias:[],
-
-
-
         }
     },
     methods: {
@@ -179,9 +176,7 @@ export default {
                 
                 let file = self.images[i];
                 formData.append('files['+ i +']', file);
-
             }
-            
             const config = {
                 headers: { "Content-Type" : "multipart/form-data"}
             }
