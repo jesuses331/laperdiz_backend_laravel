@@ -11,7 +11,7 @@
 				<header><h2>Denuncias</h2></header>
 				<div class="row">
                     @foreach ($denuncias as $denuncia)
-								@foreach ($denuncia->images as $img)
+						@foreach ($denuncia->images as $img)
 								<div class="col-sm-6 col-md-4 card" >
 									<div class="thumbnail">
 										@php
@@ -19,23 +19,16 @@
                             			@endphp
 										<img src="{{ $url[0] }}" alt="..." >
 										<div class="caption">
-										
 											<p><span>Denuncias</span></p>
-						
 											<h3>{{$denuncia->titulo}}</h3>
+											<p>{{$denuncia->resumen}}</p>
 											<br>
-											<p>{{$denuncia->descripcion}}</p>
-                                            
-											<br>
-											
-												
-                                        
 										</div>
-                                        <span><i class="icon-calendar"><p>{{$denuncia->created_at}}</p></span></i>		
+                                        <span><i class="icon-calendar"><p>{{$denuncia->fecha}}</p></span></i>		
 									</div>
 								</div>
-								@endforeach
 						@endforeach
+					@endforeach
 				</div>
 			</div>
 		</article>
@@ -44,13 +37,4 @@
 	</section>
 
 </div>
-@endsection
-@section('scripts')
-    <script>
-        ClassicEditor
-            .create( document.querySelector( '#descripcion' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
 @endsection

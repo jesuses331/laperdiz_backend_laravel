@@ -13,6 +13,7 @@ class Noticia extends Model
         'titulo',
         'descripcion',
         'ciudad',
+        'resumen',
         
     ];
 

@@ -34,7 +34,7 @@
 						
 											<h3>{{$noticia->titulo}}</h3>
 											<br>
-											<p>{{$noticia->descripcion}}</p>
+											<p>{{$noticia->resumen}}.....</p>
 											<br>
 											
 											

@@ -8,7 +8,7 @@
 
     <!-- Modal -->
     <div  class="modal" :class="{mostrar:modal}">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-scrollable" >
 
         <!-- Modal content-->
             <div class="modal-content">
@@ -23,12 +23,11 @@
                         <input v-model="denuncia.titulo" id="titulo" placeholder="Titulo" type="text" class="form-control" >
                          <span class="text-danger" v-if="errores.titulo">{{errores.titulo[0]}}</span>
                     </div>
-                    <div id ="descripcion">
-                        <label for="descripcion">Descripcion</label>
-                        <textarea v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"  ></textarea>
-                        
-                         <span class="text-danger" v-if="errores.descripcion">{{errores.descripcion[0]}}</span>
+                    <div>
+                        <label for="resumen">Resumen</label>
+                        <textarea v-model="denuncia.resumen" id="resumen" placeholder="resumen" type="textarea" class="form-control" rows="3"  maxlength="120"></textarea>
                     </div>
+                    
                     <div>
                         <label for="ciudad">Ciudad</label>
                         <input v-model="denuncia.ciudad" id="ciudad" placeholder="ciudad" type="text" class="form-control" >
@@ -39,6 +38,11 @@
                         <input v-model="denuncia.fecha" id="fecha" placeholder="fecha" type="date" class="form-control" >
                         <!--<span class="text-danger" v-if="errores.fecha">{{errores.fecha[0]}}</span>-->
                     </div> <br>
+                    <div id ="descripcion">
+                        <label for="descripcion">Descripcion</label>
+                        <ckeditor  v-model="denuncia.descripcion" id="descripcion" placeholder="descripcion" ></ckeditor>
+                         <span class="text-danger" v-if="errores.descripcion">{{errores.descripcion[0]}}</span>
+                    </div><br>
                     <div>
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
@@ -113,14 +117,7 @@
 </div>
     
 </template>
-<script src="https://cdn.ckeditor.com/ckeditor5/29.2.0/classic/ckeditor.js"></script>
-<script>
-		ClassicEditor
-        		.create( document.querySelector( '#descripcion' ) )
-        		.catch( error => {
-            console.error( error );
-        });
-		</script>
+
 <script>
 export default {
     data(){
@@ -137,6 +134,7 @@ export default {
                 fecha:'',
                 descripcion:'',
                 ciudad:'',
+                resumen:'',
                 
 
             },
@@ -207,6 +205,7 @@ export default {
                 this.denuncia.titulo = data.titulo;
                 this.denuncia.descripcion = data.descripcion;
                 this.denuncia.ciudad = data.ciudad;
+                this.denuncia.resumen = data.resumen;
             }else{
                 this.id = 0;
                 this.tituloModal = 'Registrar Denuncia';
@@ -214,6 +213,7 @@ export default {
                 this.denuncia.descripcion = '';
                  this.denuncia.ciudad = '';
                  this.denuncia.fecha = '';
+                  this.denuncia.resumen = '';
             }
             
 

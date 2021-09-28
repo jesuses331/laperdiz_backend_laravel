@@ -122,9 +122,11 @@
   	
 
 @yield('denuncias')
-<!-- Footer -->
-<footer>
 
+
+<!-- Footer -->
+
+<footer>
 	<!-- begin Contact -->
 	<article class="contact">
 	<div id="map"></div>

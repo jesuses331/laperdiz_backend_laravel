@@ -19,6 +19,7 @@ class CreateNoticiasTable extends Migration
             $table->string('autor');
             $table->string('titulo');
             $table->string('ciudad');
+            $table->text('resumen');
             $table->text('descripcion');
             $table->timestamps();
         });

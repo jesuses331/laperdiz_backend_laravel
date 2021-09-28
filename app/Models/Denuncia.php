@@ -12,6 +12,7 @@ class Denuncia extends Model
         'titulo',
         'descripcion',
         'ciudad',
+        'resumen',
         
     ];
 

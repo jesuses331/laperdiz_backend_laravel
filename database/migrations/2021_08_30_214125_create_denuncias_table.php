@@ -18,6 +18,7 @@ class CreateDenunciasTable extends Migration
             $table->date('fecha')->nullable();
             $table->string('titulo');
             $table->string('ciudad');
+            $table->text('resumen');
             $table->text('descripcion');
             
             $table->timestamps();

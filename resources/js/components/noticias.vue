@@ -8,7 +8,7 @@
 
     <!-- Modal -->
     <div  class="modal" :class="{mostrar:modal}">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-scrollable">
 
         <!-- Modal content-->
             <div class="modal-content">
@@ -27,28 +27,22 @@
                         <input v-model="noticia.titulo" id="titulo" placeholder="Titulo " type="text" class="form-control" >
                     </div>
                     <div>
+                        <label for="resumen">Resumen</label>
+                        <textarea v-model="noticia.resumen" id="resumen" placeholder="Resumen" type="textarea" class="form-control" rows="3" maxlength="120" ></textarea>
+                    </div>
+                    <div>
+                        <label for="ciudad">Ciudad</label>
+                        <input v-model="noticia.ciudad" id="ciudad" placeholder="ciudad " type="text" class="form-control" >
+                    </div>
+                    <div>
+                        <label for="fecha">Fecha</label>
+                        <input v-model="noticia.fecha" id="fecha" placeholder="fecha " type="date" class="form-control" >
+                    </div>
+                    <div>
                         <label for="descripcion">Descripcion</label>
-                        <textarea v-model="noticia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" class="form-control" rows="10"  ></textarea>
+                        <ckeditor v-model="noticia.descripcion" id="descripcion" placeholder="descripcion" type="textarea" rows="10"  ></ckeditor>
                     </div>
                     <br> 
-                   <!-- <div>
-                        <label for="razas">Raza</label>
-                        <select v-model="mascota.raza_id"  id="razas" class="form-control">
-                            <option value="null">Seleccione una raza</option>
-                           <option v-for="raz in razas" :key="raz.id" v-bind:value="raz.id">{{raz.nombre}}</option>
-                        </select>
-                        <p>{{mascota.raza_id}}</p>
-                        
-                    </div>
-                     <div>
-                        <label for="etapas">Etapas</label>
-                        <select v-model="mascota.etapa_id"  id="etapas" class="form-control">
-                            <option value="null">Seleccione una etapa</option>
-                           <option v-for="etapa in etapas" :key="etapa.id" v-bind:value="etapa.id">{{etapa.nombre}}</option>
-                        </select>
-                        <p>{{mascota.etapa_id}}</p>
-                        
-                    </div>-->
                     <div>
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
@@ -85,7 +79,7 @@
          <th >{{ not.autor }}</th>
         <th >{{ not.fecha }}</th>
         <td>{{ not.titulo }}</td>
-        <td>{{ not.descripcion }}</td>
+        <td>{{ not.resumen }}</td>
         <td>{{ not.ciudad }}</td>
         <td>
             <button  @click="modificar=true; abrirModal(not)" class="btn btn-warning">Editar</button>
@@ -113,11 +107,11 @@ export default {
             /*********Mascotas */
             id:0,
             noticia:{
-                fecha:null,
+                fecha:'',
                 autor:'',
                 titulo:'',
                 descripcion:'',
-                ciudad:'santa cruz'
+                ciudad:'',
 
             },
             modificar:true,
@@ -205,8 +199,6 @@ export default {
                     console.log(error);
                 })
             }
-            
-            
         },
         abrirModal(data={}){
             this.modal = 1;
@@ -216,12 +208,18 @@ export default {
                 this.noticia.autor = data.autor;
                 this.noticia.titulo = data.titulo;   
                 this.noticia.descripcion = data.descripcion;
+                this.noticia.resumen = data.resumen;
+                this.noticia.ciudad = data.ciudad;
+                this.noticia.fecha = data.fecha;
             }else{
                 this.id = 0;
                 this.tituloModal = 'Registrar Noticia';
                 this.noticia.autor ='',
                 this.noticia.titulo ='';
                 this.noticia.descripcion = '';
+                this.noticia.resumen = '';
+                this.noticia.ciudad = '';
+                 this.noticia.fecha = '';
                
                 
                 console.log(this.noticia);

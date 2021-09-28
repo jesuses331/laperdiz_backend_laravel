@@ -38,7 +38,12 @@ class NoticiaController extends Controller
     public function store(Request $request)
     {
         $noticia = new Noticia();
-        $noticia->create($request->all());
+        $noticia->autor = $request->input('autor');
+        $noticia->titulo = $request->input('titulo');
+        $noticia->resumen = $request->input('resumen');
+        $noticia->ciudad = $request->input('ciudad');
+        $noticia->descripcion = strip_tags( $request->input('descripcion'));
+        $noticia->save();
     }
 
     /**
@@ -73,7 +78,12 @@ class NoticiaController extends Controller
     public function update(Request $request, $id)
     {
         $noticia = Noticia::find($id);
-        $noticia->update($request->all());
+        $noticia->autor = $request->input('autor');
+        $noticia->titulo = $request->input('titulo');
+        $noticia->resumen = $request->input('resumen');
+        $noticia->ciudad = $request->input('ciudad');
+        $noticia->descripcion = strip_tags( $request->input('descripcion'));
+        $noticia->save();
         $models = 'App\Models\Noticia';
         $image_id = DB::table('images')
                     ->where('imageable_id', '=', $id)

@@ -8,7 +8,7 @@
 
     <!-- Modal -->
     <div  class="modal" :class="{mostrar:modal}">
-        <div class="modal-dialog">
+        <div class="col-8 modal-dialog  modal-dialog-scrollable">
 
         <!-- Modal content-->
             <div class="modal-content">

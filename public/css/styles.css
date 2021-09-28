@@ -1324,15 +1324,12 @@ aside .recent-news a:hover {
 
 .card{
    padding-top: 30px;
-   padding-left: 50px;
-   padding-right: 50px;
-   
-  
+   padding-left: 15px;
+   padding-right: 15px;
 }
 .card .thumbnail{
-  
-  height: 700px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
 }
 .card img{
   height: 182px;
@@ -1340,7 +1337,6 @@ aside .recent-news a:hover {
 }
 .caption span{
   font-size: 14px;
-  
 }
 /***********************************veterinarias/comentarios**********************************/
 .comentarios {

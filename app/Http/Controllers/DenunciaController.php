@@ -40,7 +40,15 @@ class DenunciaController extends Controller
     public function store(DenunciaRequest $request)
     {
         $denuncia = new Denuncia();
-        $denuncia->create($request->all());
+        $denuncia->titulo=$request->input('titulo');
+        $denuncia->ciudad=$request->input('ciudad');
+        $denuncia->resumen=$request->input('resumen');
+        $denuncia->fecha=$request->input('fecha');
+        $denuncia->descripcion=strip_tags($request->input('descripcion'));
+        $denuncia->save();
+        
+       
+        
     }
 
     /**
@@ -75,7 +83,12 @@ class DenunciaController extends Controller
     public function update(DenunciaRequest $request, $id)
     {
         $denuncia = Denuncia::find($id);
-        $denuncia->update($request->all());
+        $denuncia->titulo=$request->input('titulo');
+        $denuncia->ciudad=$request->input('ciudad');
+        $denuncia->resumen=$request->input('resumen');
+        $denuncia->fecha=$request->input('fecha');
+        $denuncia->descripcion=strip_tags($request->input('descripcion'));
+        $denuncia->save();
         $models = 'App\Models\Denuncia';
         $image_id = DB::table('images')
                     ->where('imageable_id', '=', $id)

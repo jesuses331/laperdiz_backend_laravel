@@ -33,7 +33,8 @@ Vue.component('padrinos', require('./components/padrinos.vue').default);
  */
 
 //CKEditor
-
+import CKEditor from 'ckeditor4-vue';
+Vue.use( CKEditor );
 
 const app = new Vue({
     el: '#app',
