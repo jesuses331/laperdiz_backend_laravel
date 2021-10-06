@@ -6,7 +6,9 @@
 		<!-- begin Coupons -->
 		<article class="coupons">
 			<div class="container">
-				<header><h2>Noticias</h2></header>
+				<header>
+					<h2>Noticias</h2>
+				</header>
 				
                     <div class="row">
                         <div class="title">

@@ -2668,6 +2668,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2703,6 +2726,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       mascota: {
         nombre: '',
         detalle: '',
+        estado: false,
         raza_id: null,
         etapa_id: null
       },
@@ -2877,11 +2901,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
 
-    /*  async listarImagenes(){
-        const res = await axios.get('/imagenes');
-         this.images=res.data;
-     },*/
-
     /*********ETAPAS***/
     listarEtapas: function listarEtapas() {
       var _this6 = this;
@@ -2942,6 +2961,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           axios.post('/mascota/imagenes', formData, config).then(function (response) {
             self.$refs.files.value = '';
             self.images = [];
+            self.getImages();
           });
         }
       } catch (error) {
@@ -2952,6 +2972,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log(error.response.data);
       }
     },
+    getImages: function getImages() {
+      var _this7 = this;
+
+      axios.get('/mascota/imagenes/').then(function (response) {
+        _this7.pictures = response.data.images;
+      })["catch"](function (error) {});
+    },
     abrirModal: function abrirModal() {
       var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.modal = 1;
@@ -2960,6 +2987,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.id = data.id;
         this.tituloModal = "Editar Mascota";
         this.mascota.nombre = data.nombre;
+        this.mascota.estado = data.estado;
         this.mascota.detalle = data.detalle;
         this.mascota.raza_id = data.raza_id;
         this.mascota.etapa_id = data.etapa_id;
@@ -2968,6 +2996,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.tituloModal = 'Registrar Mascota';
         this.mascota.nombre = '';
         this.mascota.detalle = '';
+        this.mascota.estado = false;
         this.mascota.raza_id = null;
         this.mascota.etapa_id = null;
       }
@@ -2978,6 +3007,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   created: function created() {
+    this.getImages();
     this.listarTallas();
     this.listarRazas();
     this.listarEtapas();
@@ -42258,6 +42288,7 @@ var render = function() {
                   ])
                 : _vm._e()
             ]),
+            _c("br"),
             _vm._v(" "),
             _c("div", { staticClass: "col-6" }, [
               _c("label", { attrs: { for: "razas" } }, [_vm._v("Raza")]),
@@ -42317,6 +42348,7 @@ var render = function() {
                   ])
                 : _vm._e()
             ]),
+            _c("br"),
             _vm._v(" "),
             _c("div", { staticClass: "col-6" }, [
               _c("label", { attrs: { for: "etapas" } }, [_vm._v("Etapas")]),
@@ -42377,6 +42409,53 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("label", { attrs: { for: "estado" } }, [_vm._v("Estado")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.mascota.estado,
+                    expression: "mascota.estado"
+                  }
+                ],
+                attrs: { type: "checkbox" },
+                domProps: {
+                  checked: Array.isArray(_vm.mascota.estado)
+                    ? _vm._i(_vm.mascota.estado, null) > -1
+                    : _vm.mascota.estado
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.mascota.estado,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(_vm.mascota, "estado", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.mascota,
+                            "estado",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.mascota, "estado", $$c)
+                    }
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
             _c(
               "div",
               { staticClass: "col-12" },
@@ -42384,40 +42463,13 @@ var render = function() {
                 _c("label", { attrs: { for: "detalle" } }, [_vm._v("Detalle")]),
                 _vm._v(" "),
                 _c("ckeditor", {
-                  attrs: { config: _vm.editorConfig },
+                  attrs: { id: "detalle", placeholder: "Detalles" },
                   model: {
-                    value: _vm.editorData,
+                    value: _vm.mascota.detalle,
                     callback: function($$v) {
-                      _vm.editorData = $$v
+                      _vm.$set(_vm.mascota, "detalle", $$v)
                     },
-                    expression: "editorData"
-                  }
-                }),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.mascota.detalle,
-                      expression: "mascota.detalle"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    id: "descripcion",
-                    placeholder: "Detalles",
-                    type: "textarea",
-                    rows: "5"
-                  },
-                  domProps: { value: _vm.mascota.detalle },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.mascota, "detalle", $event.target.value)
-                    }
+                    expression: "mascota.detalle"
                   }
                 }),
                 _vm._v(" "),
@@ -42450,7 +42502,48 @@ var render = function() {
                     _vm._v(_vm._s(_vm.errores.imagen[0]))
                   ])
                 : _vm._e()
-            ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "table-auto w11/12 m-auto bg-white rounded my-10"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.pictures, function(picture, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", { staticClass: "border px-4 py-2" }, [
+                        _vm._v(" " + _vm._s(picture.id))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "border px-4 py-2 flex-wrap justify-center"
+                        },
+                        _vm._l(picture.images, function(img, index) {
+                          return _c("img", {
+                            key: index,
+                            attrs: { src: img, width: "100px", height: "100px" }
+                          })
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "border px-4 py-2" }, [
+                        _vm._v(" " + _vm._s(_vm.image.id))
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "modal-footer" }, [
@@ -42489,7 +42582,7 @@ var render = function() {
     _c("br"),
     _vm._v(" "),
     _c("table", { staticClass: "table " }, [
-      _vm._m(0),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "tbody",
@@ -42500,6 +42593,8 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(mas.nombre))]),
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(mas.detalle))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(mas.estado))]),
             _vm._v(" "),
             _c("td", [
               _c(
@@ -42545,11 +42640,27 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { staticClass: "px-4 py-2 border" }, [_vm._v("id")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "px-4 py-2 border" }, [_vm._v("images")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "px-4 py-2 border" }, [_vm._v("Actions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("id")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Detalle")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estado")]),
         _vm._v(" "),
         _c(
           "th",

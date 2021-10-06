@@ -52,6 +52,7 @@
                     <ul>
                    
                         @foreach ($mascotas as $mascota)
+                        @if (($mascota->estado) != false)
                             @foreach ($mascota->images as $img)
                             <li class="male top">
                                 <a href="single-puppie.html">
@@ -70,6 +71,7 @@
                                 </a>
                             </li>
                             @endforeach 
+                        @endif    
                         @endforeach 
                       
                     </ul>

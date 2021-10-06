@@ -57,7 +57,7 @@ Route::resource('/padrinos', PadrinoController::class);
 
 
 
-
+Route::get('/mascota/imagenes/', [MascotaController::class, 'indexImage']);
 Route::post('/denuncia/imagenes/', [DenunciaController::class, 'storeImage']);
 Route::post('/mascota/imagenes/', [MascotaController::class, 'storeImage']);
 Route::post('/noticia/imagenes/', [NoticiaController::class, 'storeImage']);

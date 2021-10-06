@@ -22,7 +22,7 @@
                         <label for="nombre">Nombre</label>
                         <input v-model="mascota.nombre" id="nombre" placeholder="Nombre de la mascota" type="text" class="form-control" >
                         <span class="text-danger" v-if="errores.nombre">{{errores.nombre[0]}}</span>
-                    </div>
+                    </div><br>
                    
                     <div class="col-6">
                         <label for="razas">Raza</label>  
@@ -31,9 +31,8 @@
                            <option v-for="raz in razas" :key="raz.id" v-bind:value="raz.id">{{raz.nombre}}</option>
                         </select>
                          <span class="text-danger" v-if="errores.raza_id">{{errores.raza_id[0]}}</span>
-                    </div>
+                    </div><br>
                     <div class="col-6">
-
                        <label for="etapas">Etapas</label>
                         <select v-model="mascota.etapa_id"  id="etapas" class="form-control">
                             <option value="null">Seleccione una etapa</option>
@@ -42,17 +41,39 @@
                          <span class="text-danger" v-if="errores.etapa_id">{{errores.etapa_id[0]}}</span>
                         
                     </div>
+                    <br>
+                    <div class="col-6">
+                       <label for="estado">Estado</label>
+                         <input type="checkbox" v-model="mascota.estado">
+                    </div>
                     <div class="col-12">
                         <label for="detalle">Detalle</label>
-                         <ckeditor v-model="editorData" :config="editorConfig"></ckeditor>
-                         <textarea v-model="mascota.detalle" id="descripcion" placeholder="Detalles" type="textarea" class="form-control" rows="5"></textarea>
+                         <ckeditor v-model="mascota.detalle" id="detalle" placeholder="Detalles" ></ckeditor>
+                         
                          <span class="text-danger" v-if="errores.detalle">{{errores.detalle[0]}}</span>
                     </div>
                     <div class="py-3 m-3">
                         <label for="files">fotos</label>
                         <input class="hidden" @change="imageChange" type="file" name="files[]" ref="files" id="files" multiple>
-                         <span class="text-danger" v-if="errores.imagen">{{errores.imagen[0]}}</span>
+                        <span class="text-danger" v-if="errores.imagen">{{errores.imagen[0]}}</span>
                     </div>
+                    <table class="table-auto w11/12 m-auto bg-white rounded my-10">
+                        <thead>
+                            <tr>
+                            <th class="px-4 py-2 border">id</th>
+                            <th class="px-4 py-2 border">images</th>
+                            <th class="px-4 py-2 border">Actions</th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            <tr v-for="(picture,index) in pictures" :key="index">
+                                <td class="border px-4 py-2"> {{picture.id}}</td>
+                                <td class="border px-4 py-2 flex-wrap justify-center"> <img v-for="(img,index) in picture.images" :key="index" :src="img" width="100px" height="100px"></td>
+                                <td class="border px-4 py-2"> {{image.id}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                    <!-- <div class="m-auto">
                         <p v-for="(image,index) in images" :key="index">{{image.name}}</p>
                     </div>-->
@@ -74,6 +95,7 @@
         <th scope="col">id</th>
         <th scope="col">Nombre</th>
         <th scope="col">Detalle</th>
+        <th scope="col">Estado</th>
         <th scope="col" colspan="2" class="text-center">Accion</th>
         </tr>
     </thead>
@@ -83,6 +105,7 @@
             <th scope="row">{{ mas.id }}</th>
                 <td>{{ mas.nombre }}</td>
                 <td>{{ mas.detalle }}</td>
+                 <td>{{ mas.estado }}</td>
                <!-- <td v-for="picture,index in pictures" :key="index">
                     <img v-for="(img, index) in picture.images" :key="index" :src="img" alt="" width="10px" height="10px">
                 </td>-->
@@ -138,6 +161,7 @@ export default {
             mascota:{
                 nombre:'',
                 detalle:'',
+                estado:false,
                 raza_id:null,
                 etapa_id:null,
 
@@ -191,10 +215,7 @@ export default {
            const res = await axios.get('razas');
             this.razas=res.data;
         },
-       /*  async listarImagenes(){
-           const res = await axios.get('/imagenes');
-            this.images=res.data;
-        },*/
+       
         /*********ETAPAS***/
         async listarEtapas(){
            const res = await axios.get('etapas');
@@ -240,6 +261,7 @@ export default {
                     .then(response =>{
                     self.$refs.files.value = '';
                     self.images = [];
+                    self.getImages();
                     });
                 }
            } catch (error) {
@@ -250,7 +272,16 @@ export default {
            }
             
         },
-        
+        getImages(){
+            axios 
+            .get('/mascota/imagenes/')
+            .then(response => {
+                this.pictures = response.data.images;
+            })
+            .catch(error=>{
+
+            })
+        },
 
         abrirModal(data={}){
             this.modal = 1;
@@ -258,6 +289,7 @@ export default {
                 this.id = data.id;
                 this.tituloModal = "Editar Mascota";
                 this.mascota.nombre = data.nombre;
+                this.mascota.estado = data.estado;
                 this.mascota.detalle = data.detalle;
                 this.mascota.raza_id = data.raza_id;
                 this.mascota.etapa_id = data.etapa_id;
@@ -269,6 +301,7 @@ export default {
                 this.tituloModal = 'Registrar Mascota';
                 this.mascota.nombre ='' ;
                 this.mascota.detalle = '';
+                this.mascota.estado = false;
                 this.mascota.raza_id = null;
                 this.mascota.etapa_id = null;
                 
@@ -281,7 +314,7 @@ export default {
         },
     },
     created(){
-        
+        this.getImages();
         this.listarTallas();
         this.listarRazas();
         this.listarEtapas();

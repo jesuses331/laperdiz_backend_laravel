@@ -44,6 +44,26 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+        $ultimo_id = Mascota::latest('id')->first()->id;
+        $mascota = Mascota::find($ultimo_id);
+        if ($request->hasFile('files')){
+            foreach ($request->file('files') as $file) {
+
+                $filename = '/images/'.$file->getClientOriginalName();
+                $file->move(public_path('images'), $filename);
+                $pictures[] = $filename;
+            }
+            $image = new Image([
+                'url'=>json_encode($pictures),
+            ]);
+          $mascota->images()->save($image);
+             
+                
+            return response()->json(['message'=>'image added']);
+        }else{
+            return response()->json(['message'=>'error']);
+        }
+        
         
         
        

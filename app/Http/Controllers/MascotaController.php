@@ -137,7 +137,6 @@ class MascotaController extends Controller
             $image = new Image([
                 'url'=>json_encode($pictures),
             ]);
-        
           $mascota->images()->save($image);
              
                 
@@ -147,7 +146,20 @@ class MascotaController extends Controller
         }
         
     }
+    public function indexImage(Request $request)
+    {   $models = 'App\Models\Mascota';
+        $images =  Image::get()->where('imageable_type', '=', $models);
+        foreach ($images as $data){
+            $data->url = json_decode($data->url);
+        }
+        return response()->json($images);
+    }
     public function updateImage(Request $request,$id){
-        
+        $models = 'App\Models\Mascota';
+        $images =  DB::table('images')->where('imageable_type', '=', $models)->get();
+        foreach ($images as $data){
+            $data->url = json_decode($data->url);
+        }
+        return response()->json($images);
     }
 }

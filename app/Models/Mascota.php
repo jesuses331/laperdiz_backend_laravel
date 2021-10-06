@@ -12,6 +12,7 @@ class Mascota extends Model
         'nombre',
         'detalle',
         'etapa_id',
+        'estado',
         'raza_id'
     ];
 

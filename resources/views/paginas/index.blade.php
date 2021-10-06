@@ -113,6 +113,11 @@
 						<div class="grid">
 							<ul> 
 								@foreach ($mascotas as $mascota)
+									@if (($mascota->estado) != false)
+										
+									
+										
+									
 										<li class="male top">
 											<a href="dogs.html">
 												<div class="more">
@@ -129,7 +134,8 @@
 												@endforeach
 													<span class="name">{{ $mascota->nombre }}</span>
 											</a>
-										</li>    
+										</li> 
+									@endif	  
 								@endforeach	
 							</ul>
 						</div>
@@ -182,7 +188,7 @@
 			<!-- end Our Reputation -->
 
 			<!-- Our Services -->
-			<article class="services">
+			<article class="coupons">
 				<div class="container">
 				
 					<div class="row">

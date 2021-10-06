@@ -2,37 +2,60 @@
 @section('content')
     
 
-<div>
+<div id="content">
 	<section>
 		
-		<!-- Our Services -->
-		<article class="services">
+		<!-- begin Coupons -->
+		<article class="coupons">
 			<div class="container">
-				<header><h2>Denuncias</h2></header>
-				<div class="row">
-                    @foreach ($denuncias as $denuncia)
-						@foreach ($denuncia->images as $img)
+				<header>
+					<h2>Noticias</h2>
+				</header>
+				
+                    <div class="row">
+                        <div class="title">
+                            <div class="centered"><div><h2>Dile no al maltrato animal!!!</h2></div></div>
+                            <p>"El mundo sería un lugar mucho mejor si las personas tuvieran el corazón de los perros".</p>
+                            <hr>
+                        </div>
+                    </div>
+               
+				
+                
+				@foreach ($denuncias as $denuncia)
+								@foreach ($denuncia->images as $img)
 								<div class="col-sm-6 col-md-4 card" >
+									
 									<div class="thumbnail">
+										
 										@php
                                 			$url = json_decode($img->url)
                             			@endphp
 										<img src="{{ $url[0] }}" alt="..." >
 										<div class="caption">
+										
 											<p><span>Denuncias</span></p>
+						
 											<h3>{{$denuncia->titulo}}</h3>
-											<p>{{$denuncia->resumen}}</p>
 											<br>
+											<p>{{$denuncia->resumen}}.....</p>
+											<br>
+											
+											
+											
 										</div>
-                                        <span><i class="icon-calendar"><p>{{$denuncia->fecha}}</p></span></i>		
+										
+											<span><i class="icon-calendar"><p>{{$denuncia->created_at}}</p></span></i>	
+										
 									</div>
 								</div>
+								@endforeach
 						@endforeach
-					@endforeach
-				</div>
-			</div>
+                
+				
+			</div>  
 		</article>
-		<!-- end Our Services -->
+		<!-- end Coupons -->
 
 	</section>
 

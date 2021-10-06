@@ -15,6 +15,7 @@ class CreateMascotasTable extends Migration
     {
         Schema::create('mascotas', function (Blueprint $table) {
             $table->id();
+            $table->boolean('estado');
             $table->string('nombre');
             $table->text('detalle');
             $table->unsignedBigInteger('raza_id');
